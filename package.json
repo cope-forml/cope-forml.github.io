@@ -13,7 +13,7 @@
     "bibtex-parse-js": "^0.0.24",
     "luxon": "^3.4.4",
     "postcss": "^8.4.31",
-    "tailwindcss": "^3.4.4"
+    "tailwindcss": "^3.4.17"
   },
   "dependencies": {
     "js-yaml": "^4.1.0",
