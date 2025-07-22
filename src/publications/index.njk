@@ -5,6 +5,17 @@ permalink: /publications/index.html
 ---
 {% set papers = collections.publications | sort(attribute='entryTags.year', reverse=true) %}
 {% set topicsL  = topics %}
+{# Conference/journal mapping: [label, colour, fullname, bibtex type] #}
+{% set venueMap = {
+  'neurips':    ['NeurIPS',  'bg-green-500',   'Conference on Neural Information Processing Systems', 'booktitle'],
+  'iclr':       ['ICLR',     'bg-emerald-500', 'International Conference on Learning Representations', 'booktitle'],
+  'icml':       ['ICML',     'bg-blue-500',    'International Conference on Machine Learning', 'booktitle'],
+  'aistats':    ['AISTATS',  'bg-indigo-500',  'Artificial Intelligence and Statistics', 'booktitle'],
+  'colt':       ['COLT',     'bg-cyan-500',    'Conference on Learning Theory', 'booktitle'],
+  'tmlr':       ['TMLR',     'bg-purple-500',  'Transactions on Machine Learning Research', 'journal'],
+  'arxiv':      ['Preprint', 'bg-gray-500',    'arXiv Preprint', 'preprint'],
+  'preprint':   ['Preprint', 'bg-gray-500',    'Preprint', 'preprint']
+} %}
 
 <h1 class="text-3xl font-semibold mb-10">Publications</h1>
 
@@ -29,23 +40,68 @@ permalink: /publications/index.html
         {% set yr = p.entryTags.year %}
         <h2 class="sticky-year">{{ yr }}</h2>
       {% endif %}
+
+      {# Venue tag logic #}
+      {% set venueRaw = p.entryTags.journal or p.entryTags.booktitle or '' %}
+      {% set venue = venueRaw | lower %}
+      {% set venueKey = '' %}
+      {% set venueTag = venueRaw %}
+      {% set venueClass = 'bg-accent' %}
+      {% set venueFull = venueRaw %}
+      {% set bibField = 'booktitle' %}
+      {% set bibType = 'inproceedings' %}
+      {% for key, val in venueMap %}
+        {% if key in venue %}
+          {% set venueKey = key %}
+          {% set venueTag = val[0] %}
+          {% set venueClass = val[1] %}
+          {% set venueFull = val[2] %}
+          {% if val[3] == 'preprint' %}
+            {% set bibType = 'article' %}
+            {% set bibField = 'journal' %}
+          {% else %}
+            {% set bibType = 'inproceedings' %}
+            {% set bibField = val[3] %}
+          {% endif %}
+        {% endif %}
+      {% endfor %}
+      {% if not venueKey %}
+        {% set venueKey = venueRaw %}
+      {% endif %}
+
+      {# For arXiv/preprint, get arxiv code if present #}
+      {% set arxivcode = '' %}
+      {% if venueKey == 'arxiv' or venueKey == 'preprint' %}
+        {% set arxivcode = p.entryTags.arxiv or '' %}
+        {% if arxivcode and (arxivcode | slice(0,6) != 'arXiv:') %}
+          {% set arxivcode = 'arXiv:' ~ arxivcode %}
+        {% endif %}
+      {% endif %}
+
       <article id="{{ p.slug }}" class="paper-card" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
         <span class="accent-bar"></span>
         <div class="p-4 pl-5">
           <h3 class="title">{{ p.entryTags.title }}</h3>
           <p class="authors">
-  {%- for author in p.entryTags.author.split(' and ') -%}
-    {%- set parts = author.split(',') -%}
-    {%- if parts | length == 2 -%}
-      {{ parts[1].trim() }} {{ parts[0].trim() }}{% if not loop.last %}, {% endif %}
-    {%- else -%}
-      {{ author }}{% if not loop.last %}, {% endif %}
-    {%- endif -%}
-  {%- endfor -%}
-</p>
+            {%- for author in p.entryTags.author.split(' and ') -%}
+              {%- set parts = author.split(',') -%}
+              {%- if parts | length == 2 -%}
+                {{ parts[1].trim() }} {{ parts[0].trim() }}{% if not loop.last %}, {% endif %}
+              {%- else -%}
+                {{ author }}{% if not loop.last %}, {% endif %}
+              {%- endif -%}
+            {%- endfor -%}
+          </p>
+<div class="flex items-center gap-4 mb-1">
+  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ venueClass }}">
+    {{ venueTag }}
+  </span>
+  <span class="text-xs text-gray-500">
+    {{ venueFull }} ({{ p.entryTags.year }})
+  </span>
+</div>
 
-          <p class="venue">{{ p.entryTags.journal or p.entryTags.booktitle }} ({{ p.entryTags.year }})</p>
-          <div class="actions flex flex-wrap gap-2 text-xs mb-3">
+<div class="actions flex flex-wrap gap-2 text-xs mb-3">
             {% if p.entryTags.pdf %}<a href="{{ p.entryTags.pdf | url }}" aria-label="PDF" class="action-btn">PDF</a>{% endif %}
             {% if p.entryTags.code %}<a href="{{ p.entryTags.code }}" aria-label="Code" class="action-btn">Code</a>{% endif %}
             {% if p.entryTags.video %}<a href="{{ p.entryTags.video }}" aria-label="Video" class="action-btn">Video</a>{% endif %}
@@ -56,7 +112,18 @@ permalink: /publications/index.html
                 <a href="https://arxiv.org/abs/{{ p.entryTags.arxiv }}" aria-label="arXiv" class="action-btn">arXiv</a>
               {% endif %}
             {% endif %}
+            <button class="action-btn bibtex-btn"
+              data-slug="{{ p.slug }}"
+    data-title="{{ p.entryTags.title | escape }}"
+    data-authors="{{ p.entryTags.author | escape }}"
+    data-year="{{ p.entryTags.year }}"
+    data-venue="{{ venueFull | escape }} ({{ venueTag }})"
+    data-field="{{ bibField }}"
+    data-type="{{ bibType }}"
+    data-arxiv="{{ arxivcode }}"
+            >BibTeX</button>
           </div>
+          
           <div class="tags flex flex-wrap gap-1">
             {% for tag in p.tags %}<button class="tag" data-tag="{{ tag }}">{{ tag }}</button>{% endfor %}
           </div>
@@ -81,6 +148,40 @@ permalink: /publications/index.html
         search.dispatchEvent(evt);
       }
     }
+    // BibTeX copy handler
+    document.querySelectorAll('.bibtex-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const slug = btn.dataset.slug;
+        const title = btn.dataset.title;
+        const authors = btn.dataset.authors;
+        const year = btn.dataset.year;
+        const venue = btn.dataset.venue;
+        const field = btn.dataset.field || 'booktitle';
+        const type = btn.dataset.type || 'inproceedings';
+        const arxiv = btn.dataset.arxiv;
+        // Remove curly braces in venue/title/authors to avoid nested braces
+        function clean(s) { return s.replace(/[{}]/g,''); }
+        let bibtex = '';
+        if(type === 'article' && arxiv) {
+          bibtex = `@article{${slug},
+  title = {${clean(title)}},
+  author = {${clean(authors)}},
+  year = {${year}},
+  journal = {${clean(arxiv)}}
+}`;
+        } else {
+          bibtex = `@${type}{${slug},
+  title = {${clean(title)}},
+  author = {${clean(authors)}},
+  year = {${year}},
+  ${field} = {${clean(venue)}}
+}`;
+        }
+        navigator.clipboard.writeText(bibtex);
+        btn.textContent = 'Copied!';
+        setTimeout(() => { btn.textContent = 'BibTeX'; }, 1200);
+      });
+    });
   });
 
   // Filtering

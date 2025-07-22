@@ -47,16 +47,45 @@ eleventyConfig.addCollection('news', function(api) {
 
 eleventyConfig.addCollection('openings', api => api.getFilteredByGlob('./content/openings/*.md').sort((a,b)=>b.date-a.date));
 
-  eleventyConfig.addCollection('publications', () => {
-    const bibPath = 'data/publications.bib';
-    if (!fs.existsSync(bibPath)) return [];
-    return bibtexParse.toJSON(fs.readFileSync(bibPath,'utf8')).map(e=>({
+const slugify = require("slugify");
+
+
+
+const fs = require('fs');
+const bibtexParse = require('bibtex-parse-js');
+
+eleventyConfig.addCollection('publications', () => {
+  const bibPath = 'data/publications.bib';
+  if (!fs.existsSync(bibPath)) return [];
+  return bibtexParse.toJSON(fs.readFileSync(bibPath,'utf8')).map(e => {
+    // First word of title
+    const firstWord = (e.entryTags.title || '')
+      .split(/\s+/)[0]
+      .replace(/[^a-zA-Z0-9]/g, '') || 'paper';
+
+    // Last name of first author (assuming "Last, First and ..." format)
+    let lastName = 'author';
+    if (e.entryTags.author) {
+      const firstAuthor = e.entryTags.author.split(' and ')[0];
+      // Handles "Last, First" and also "First Last"
+      lastName = (firstAuthor.split(',')[0] || firstAuthor.split(' ')[1] || firstAuthor).replace(/[^a-zA-Z0-9]/g, '');
+    }
+
+    // Year (fallback to 'xxxx')
+    const year = e.entryTags.year || 'xxxx';
+
+    // Slugify
+    const slug = slugify(`${firstWord}-${lastName}-${year}`, { lower: true, strict: true });
+
+    return {
       ...e,
-      slug: (e.entryTags.title||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''),
+      slug,
       topics: (e.entryTags.topic||'').split(',').map(s=>s.trim()).filter(Boolean),
       tags:   (e.entryTags.tags ||'').split(',').map(s=>s.trim()).filter(Boolean)
-    }));
+    };
   });
+});
+
 
   return {
     dir: { input:'src', includes:'layouts', data:'../data', output:'_site' },
