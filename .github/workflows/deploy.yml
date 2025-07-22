@@ -1,18 +1,31 @@
-name: Build and Deploy Eleventy
+name: Deploy Eleventy site to GitHub Pages
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # or 'master' or whichever branch you want to deploy
+
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm ci
-      - run: npm run build  # or 'npx @11ty/eleventy' if no npm script
-      - uses: peaceiris/actions-gh-pages@v4
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Eleventy site
+        run: npx @11ty/eleventy
+
+      - name: Copy .nojekyll
+        run: cp .nojekyll _site/.nojekyll || touch _site/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./_site
