@@ -59,6 +59,7 @@ eleventyConfig.addCollection('openings', api => api.getFilteredByGlob('./content
   });
 
   return {
+    pathPrefix: "/cope-forml-group-site/",
     dir: { input:'src', includes:'layouts', data:'../data', output:'_site' },
     markdownTemplateEngine: 'njk',
     htmlTemplateEngine: 'njk',
