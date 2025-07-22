@@ -2,13 +2,15 @@ name: Deploy Eleventy site to GitHub Pages
 
 on:
   push:
-    branches: [ main ]  # or 'master' or whichever branch you want to deploy
+    branches: [ main ]   # Or your default branch
 
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout source
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -18,10 +20,12 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Eleventy site
-        run: npx @11ty/eleventy
+      # This step runs your full build, generating Tailwind CSS and HTML
+      - name: Build Eleventy site with Tailwind
+        run: npm run build
 
-      - name: Copy .nojekyll
+      # Ensure .nojekyll is present (avoids GitHub Pages processing)
+      - name: Add .nojekyll
         run: cp .nojekyll _site/.nojekyll || touch _site/.nojekyll
 
       - name: Deploy to GitHub Pages
