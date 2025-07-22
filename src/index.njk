@@ -1,0 +1,40 @@
+---
+layout: base.njk
+title: Home
+---
+
+
+<section class="text-center mt-16"> 
+  <img src="{{ 'assets/images/placeholder-hero.jpg' | url }}" alt="Group photo placeholder"
+    class="w-full h-64 object-cover rounded-2xl mb-6">
+  <h1 class="text-5xl font-semibold mb-4">Foundations of Responsible
+  Machine Learning</h1>
+  <p class="text-2xl leading-relaxed max-w-2xl rounded-2xl mb-6 mx-auto">
+    We are a research group at the <strong>University of
+    Copenhagen</strong> developing principled methods at the
+    intersection of privacy, robustness, learning theory, and
+    generally all aspects of responsible machine
+    learning.
+  </p>
+</section>
+</section>
+
+
+<section class="mt-16">
+  <h2 class="text-2xl font-semibold mb-4">Featured News</h2>
+ <div class="space-y-6">
+  {% for n in collections.news %}
+    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold">{{ n.data.title }}</span>
+        <span class="text-xs text-gray-500">{{ n.date | date('yyyy-LL-dd') }}</span>
+      </div>
+      <div class="prose max-w-none">
+        {{ n.templateContent | safe }}
+      </div>
+    </div>
+  {% else %}
+    <div class="text-gray-500">No recent news to display.</div>
+  {% endfor %}
+</div>
+   </section>

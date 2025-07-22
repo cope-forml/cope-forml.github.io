@@ -1,0 +1,22 @@
+---
+layout: base.njk
+title: News
+permalink: /news/index.html
+---
+
+<h1 class="text-3xl font-semibold mb-10">News</h1>
+<div class="space-y-6">
+  {% for n in collections.news %}
+    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
+      <div class="flex justify-between items-center mb-2">
+        <span class="font-semibold">{{ n.data.title }}</span>
+        <span class="text-xs text-gray-500">{{ n.date | date('yyyy-LL-dd') }}</span>
+      </div>
+      <div class="prose max-w-none">
+        {{ n.templateContent | safe }}
+      </div>
+    </div>
+  {% else %}
+    <div class="text-gray-500">No recent news to display.</div>
+  {% endfor %}
+</div>

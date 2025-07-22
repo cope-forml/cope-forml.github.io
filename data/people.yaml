@@ -1,0 +1,52 @@
+- name: Amartya Sanyal
+  role: Tenure Track Assistant Professor
+  school: UCPH
+  first: Amartya
+  img: /assets/people/amartya.jpg
+  web: https://amartya18x.github.io
+# - name: Giorgio Racca
+#   role: PhD Student
+  # school: UCPH
+  # first: Giorgio
+#   img: /assets/people/giorgio.jpg
+# - name: Luka Radic
+#   role: PhD Student
+#    first: Luka
+  # school: UCPH
+#   img: /assets/people/luka.jpg
+- name: Johanna Düngler
+  role: PhD Student
+  first: Johanna
+  school: UCPH, DDSA PhD Fellow
+  img: /assets/people/johanna.jpg
+  web: https://johannaduengler.github.io/
+- name: Carolin Heinzler
+  role: PhD Student
+  first: Carolin
+  school: UCPH
+  img: /assets/people/carolin.jpg
+  web: https://caroheinz.github.io/
+- name: Yaxi Hu
+  role: PhD Student
+  first: Yaxi
+  school: MPI-IS
+  img: /assets/people/yaxi.jpg
+  web: https://yaxihu.github.io/
+- name: Max Cairney-Leeming
+  role: PhD Student
+  first: Max
+  school: ISTA (ELLIS PhD)
+  img: /assets/people/max.jpg
+  web: https://maxcl.co.uk/
+- name: Anmol Goel
+  role: PhD Student
+  first: Anmol
+  school: TU Darmstadt (ELLIS PhD)
+  img: /assets/people/anmol.jpg
+  web: https://www.goel.ai/
+- name: Omri Ben-Dov
+  role: PhD Student
+  first: Omri
+  school: MPI-IS
+  img: /assets/people/omri.jpg
+  web: https://beomri.github.io/

@@ -1,0 +1,24 @@
+<div class="space-x-2">
+  
+  
+    <button class="px-3 py-1 rounded border border-accent text-accent text-sm" data-set-theme="red">red</button>
+  
+    <button class="px-3 py-1 rounded border border-accent text-accent text-sm" data-set-theme="blue">blue</button>
+  
+    <button class="px-3 py-1 rounded border border-accent text-accent text-sm" data-set-theme="green">green</button>
+  
+</div>
+<script>
+  document.querySelectorAll('[data-set-theme]').forEach(btn=>{
+    btn.onclick=()=>{
+      const t=btn.dataset.setTheme;
+      const map={red:'#970000',blue:'#00427A',green:'#006B3C'};
+      document.documentElement.dataset.theme=t;
+      document.documentElement.style.setProperty('--accent',map[t]);
+      localStorage.theme=t;
+    };
+  });
+  const saved=localStorage.theme||'red';
+  document.documentElement.dataset.theme=saved;
+  document.documentElement.style.setProperty('--accent',{red:'#970000',blue:'#00427A',green:'#006B3C'}[saved]);
+</script>

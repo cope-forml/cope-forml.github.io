@@ -1,0 +1,21 @@
+{
+  "name": "amartya-group-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "predev": "npx tailwindcss -i ./src/assets/tailwind.css -o ./_site/assets/site.css",
+    "dev": "npx tailwindcss -i ./src/assets/tailwind.css -o ./_site/assets/site.css --watch & eleventy --serve",
+    "build": "npx tailwindcss -i ./src/assets/tailwind.css -o ./_site/assets/site.css && eleventy"
+  },
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "autoprefixer": "^10.4.17",
+    "bibtex-parse-js": "^0.0.24",
+    "luxon": "^3.4.4",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.4.4"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  }
+}

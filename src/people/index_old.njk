@@ -1,0 +1,32 @@
+---
+layout: base.njk
+title: People
+permalink: /people/indexo.html
+---
+
+
+
+<div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  {% for p in people %}
+    <div class="person-card flex flex-col items-center text-center bg-white rounded-xl shadow p-5 h-full">
+      {% if p.img %}
+        <img src="{{ p.img }}" class="w-32 h-32 rounded-full mb-4 object-cover border-2 border-accent shadow" alt="{{ p.name }}">
+      {% else %}
+        <img src="/assets/placeholder.png" class="w-32 h-32 rounded-full mb-4 object-cover border-2 border-accent shadow" alt="placeholder">
+      {% endif %}
+      <div class="text-xl font-medium mb-1">
+  {% if p.web %}
+    <a href="{{ p.web }}" class="text-accent hover:underline" target="_blank" rel="noopener">{{ p.name }}</a>
+  {% else %}
+    {{ p.name }}
+  {% endif %}
+</div>
+      <div class="text-sm text-gray-600 mb-2">{{ p.role }}</div>
+      <div class="text-sm text-gray-600 mb-4">{{ p.school }}</div>
+      <a href="/publications/?author={{ p.first | urlencode }}" 
+         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
+        View Publications
+      </a>
+    </div>
+  {% endfor %}
+</div>

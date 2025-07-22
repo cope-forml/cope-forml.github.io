@@ -1,0 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { --accent: #970000; } /* or any accent you prefer */
+
+/* Component Styles */
+@layer components {
+  .chip            {@apply px-3 py-1 rounded-full text-xs bg-gray-100 text-accent hover:bg-accent hover:text-white transition-colors;}
+  .chip-active     {@apply bg-accent text-white !important;}
+
+  .paper-card      {@apply relative overflow-hidden bg-white/60 backdrop-blur shadow-lg border border-gray-100 rounded-xl transition-all duration-150;}
+  .paper-card.hidden{@apply opacity-0 scale-95 pointer-events-none;}
+
+  .accent-bar      {@apply absolute left-0 top-0 h-full w-1 bg-accent;}
+
+  .title           {@apply font-semibold mb-1 text-accent hover:underline;}
+  .authors         {@apply text-sm text-gray-700 truncate mb-1;}
+  .venue           {@apply text-xs text-gray-500 mb-2;}
+
+  .action-btn      {@apply px-2 py-0.5 rounded border border-accent text-accent hover:bg-accent hover:text-white transition-colors;}
+
+  .tag             {@apply px-2 py-0.5 bg-gray-200 hover:bg-accent hover:text-white rounded text-xs transition-colors;}
+
+  .sticky-year     {@apply sticky top-0 bg-white/80 backdrop-blur text-lg font-semibold border-b border-gray-200 py-1 px-1;}
+
+  /* Navigation link, menu styles */
+  .nav-link {
+    @apply px-3 py-1 rounded-md transition-colors duration-150;
+  }
+  .nav-link.active,
+  .nav-link:hover,
+  .nav-link:focus {
+    @apply bg-gray-200 text-accent;
+  }
+}
+
+/* General: bigger default font, better readability */
+
+body {
+  @apply text-lg leading-relaxed bg-gray-50 pt-8 pb-8;
+}
+
+/* h1 {
+  @apply text-4xl font-bold font-serif mb-6 tracking-tight;
+}
+h2 {
+  @apply text-2xl font-semibold font-serif mb-4;
+} */

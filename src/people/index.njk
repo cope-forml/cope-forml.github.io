@@ -1,0 +1,35 @@
+---
+layout: base.njk
+title: People
+permalink: /people/index.html
+---
+
+
+<div class="max-w-5xl mx-auto px-4">
+  <h1 class="text-3xl font-semibold mb-10">Group Members</h1>
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    {% for p in people %}
+      <div class="person-card p-5 bg-white rounded-xl shadow flex flex-col items-center text-center
+            hover:shadow-2xl hover:-translate-y-1 hover:scale-105 transition-transform duration-150">
+    {% if p.img %}
+        <img src="{{ p.img }}" class="w-32 h-32 rounded-full mb-4 object-cover border-2 border-accent shadow" alt="{{ p.name }}">
+      {% else %}
+        <img src="/assets/placeholder.png" class="w-32 h-32 rounded-full mb-4 object-cover border-2 border-accent shadow" alt="placeholder">
+      {% endif %}
+      <div class="text-xl font-medium mb-1">
+  {% if p.web %}
+    <a href="{{ p.web }}" class="text-accent hover:underline" target="_blank" rel="noopener">{{ p.name }}</a>
+  {% else %}
+    {{ p.name }}
+  {% endif %}
+</div>
+      <div class="text-sm text-gray-600 mb-2">{{ p.role }}</div>
+      <div class="text-sm text-gray-600 mb-4">{{ p.school }}</div>
+      <a href="/publications/?author={{ p.first | urlencode }}" 
+         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
+        View Publications
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>

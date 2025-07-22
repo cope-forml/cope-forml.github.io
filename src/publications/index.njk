@@ -1,0 +1,105 @@
+---
+layout: base.njk
+title: Publications
+permalink: /publications/index.html
+---
+{% set papers = collections.publications | sort(attribute='entryTags.year', reverse=true) %}
+{% set topicsL  = topics %}
+
+<h1 class="text-3xl font-semibold mb-10">Publications</h1>
+
+<div class="lg:flex lg:gap-12">
+  <!-- Filter panel -->
+  <aside class="lg:w-1/4 lg:sticky lg:top-24 mb-10 lg:mb-0">
+    <input id="search-input" type="text" placeholder="Search title or author" class="w-full border focus:ring-2 ring-accent rounded-lg px-3 py-2 text-sm mb-6" />
+    <h2 class="text-sm font-semibold mb-3 text-gray-600">Topics</h2>
+    <div class="flex flex-wrap gap-2">
+      <button class="chip chip-active" data-topic="all">All</button>
+      {% for t in topicsL %}
+        <button class="chip" data-topic="{{ t.id }}">{{ t.name }}</button>
+      {% endfor %}
+    </div>
+  </aside>
+
+  <!-- Paper list -->
+  <section class="lg:w-3/4 space-y-10" id="paper-container">
+    {% set yr = 0 %}
+    {% for p in papers %}
+      {% if p.entryTags.year != yr %}
+        {% set yr = p.entryTags.year %}
+        <h2 class="sticky-year">{{ yr }}</h2>
+      {% endif %}
+      <article id="{{ p.slug }}" class="paper-card" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
+        <span class="accent-bar"></span>
+        <div class="p-4 pl-5">
+          <h3 class="title">{{ p.entryTags.title }}</h3>
+          <p class="authors">
+  {%- for author in p.entryTags.author.split(' and ') -%}
+    {%- set parts = author.split(',') -%}
+    {%- if parts | length == 2 -%}
+      {{ parts[1].trim() }} {{ parts[0].trim() }}{% if not loop.last %}, {% endif %}
+    {%- else -%}
+      {{ author }}{% if not loop.last %}, {% endif %}
+    {%- endif -%}
+  {%- endfor -%}
+</p>
+
+          <p class="venue">{{ p.entryTags.journal or p.entryTags.booktitle }} ({{ p.entryTags.year }})</p>
+          <div class="actions flex flex-wrap gap-2 text-xs mb-3">
+            {% if p.entryTags.pdf %}<a href="{{ p.entryTags.pdf | url }}" aria-label="PDF" class="action-btn">PDF</a>{% endif %}
+            {% if p.entryTags.code %}<a href="{{ p.entryTags.code }}" aria-label="Code" class="action-btn">Code</a>{% endif %}
+            {% if p.entryTags.video %}<a href="{{ p.entryTags.video }}" aria-label="Video" class="action-btn">Video</a>{% endif %}
+            {% if p.entryTags.arxiv %}
+              {% if p.entryTags.arxiv | string | slice(0,4) == 'http' %}
+                <a href="{{ p.entryTags.arxiv }}" aria-label="arXiv" class="action-btn">arXiv</a>
+              {% else %}
+                <a href="https://arxiv.org/abs/{{ p.entryTags.arxiv }}" aria-label="arXiv" class="action-btn">arXiv</a>
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="tags flex flex-wrap gap-1">
+            {% for tag in p.tags %}<button class="tag" data-tag="{{ tag }}">{{ tag }}</button>{% endfor %}
+          </div>
+        </div>
+      </article>
+    {% endfor %}
+  </section>
+</div>
+
+<script>
+  // Pre-fill search with ?author=
+  function getQueryParam(name) {
+    return new URLSearchParams(window.location.search).get(name);
+  }
+  document.addEventListener("DOMContentLoaded", function() {
+    const author = getQueryParam("author");
+    if (author) {
+      const search = document.getElementById("search-input");
+      if (search) {
+        search.value = author;
+        var evt = new Event('input', { bubbles: true });
+        search.dispatchEvent(evt);
+      }
+    }
+  });
+
+  // Filtering
+  const chips=document.querySelectorAll('.chip');
+  const cards=document.querySelectorAll('.paper-card');
+  const searchInput=document.getElementById('search-input');
+  let topic='all', q='';
+  function apply(){
+    const query = q.toLowerCase();
+    cards.forEach(c=>{
+      const topics = c.dataset.topics.toLowerCase().split(',').map(s=>s.trim());
+      const show = (topic==='all' || topics.includes(topic)) &&
+                   c.textContent.toLowerCase().includes(query);
+      c.classList.toggle('hidden', !show);
+      c.classList.toggle('opacity-0', !show);
+      c.classList.toggle('scale-95', !show);
+    });
+  }
+  chips.forEach(btn=>btn.onclick=()=>{chips.forEach(b=>b.classList.remove('chip-active'));btn.classList.add('chip-active');topic=btn.dataset.topic;apply();});
+  searchInput.oninput=()=>{q=searchInput.value;apply();};
+  document.getElementById('paper-container').addEventListener('click',e=>{if(e.target.matches('.tag')){searchInput.value=e.target.dataset.tag;q=e.target.dataset.tag;apply();}});
+</script>
