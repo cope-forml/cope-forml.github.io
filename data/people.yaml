@@ -4,16 +4,7 @@
   first: Amartya
   img: /assets/people/amartya.jpg
   web: https://amartya18x.github.io
-- name: Giorgio Racca
-  role: PhD Student
-  school: UCPH
-  first: Giorgio
-  img: /assets/people/giorgio.jpg
-- name: Luka Radic
-  role: PhD Student
-  first: Luka
-  school: UCPH
-  img: /assets/people/luka.jpg
+
 - name: Johanna Düngler
   role: PhD Student
   first: Johanna
@@ -26,6 +17,16 @@
   school: UCPH
   img: /assets/people/carolin.jpg
   web: https://caroheinz.github.io/
+- name: Giorgio Racca
+  role: PhD Student
+  school: UCPH
+  first: Giorgio
+  img: /assets/people/giorgio.jpg
+- name: Luka Radic
+  role: PhD Student
+  first: Luka
+  school: UCPH
+  img: /assets/people/luka.jpg
 - name: Yaxi Hu
   role: PhD Student
   first: Yaxi
