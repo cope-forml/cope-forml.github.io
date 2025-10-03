@@ -5,7 +5,20 @@ permalink: /openings/index.html
 ---
 
 <h1 class="text-3xl font-semibold mb-10">Open Positions</h1>
-<div class="bg-white rounded-xl shadow p-8 border border-dashed border-accent text-center text-gray-500">
-  There are no current openings in the group.<br>
-  Please check back later or contact Amartya for future opportunities.
+<div class="space-y-6">
+  {% for opening in collections.openings %}
+    <article class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
+      <header class="flex justify-between items-center mb-2">
+        <span class="font-semibold">{{ opening.data.title }}</span>
+        <span class="text-xs text-gray-500">{{ opening.date | date('yyyy-LL-dd') }}</span>
+      </header>
+      <div class="prose max-w-none">
+        {{ opening.templateContent | safe }}
+      </div>
+    </article>
+  {% else %}
+    <div class="bg-white rounded-xl shadow p-8 border border-dashed border-accent text-center text-gray-500">
+      There are no current openings in the group right now.
+    </div>
+  {% endfor %}
 </div>

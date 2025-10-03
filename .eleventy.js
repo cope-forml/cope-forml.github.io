@@ -45,7 +45,10 @@ eleventyConfig.addCollection('news', function(api) {
   return news.sort((a, b) => b.date - a.date);
 });
 
-eleventyConfig.addCollection('openings', api => api.getFilteredByGlob('./content/openings/*.md').sort((a,b)=>b.date-a.date));
+eleventyConfig.addCollection('openings', api => {
+  const openings = api.getFilteredByGlob('./src/content/openinglist/*.md');
+  return openings.sort((a, b) => b.date - a.date);
+});
 
 const slugify = require("slugify");
 
