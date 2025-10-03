@@ -728,6 +728,10 @@ video {
   color: var(--accent);
 }
 
+.fixed {
+  position: fixed;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
