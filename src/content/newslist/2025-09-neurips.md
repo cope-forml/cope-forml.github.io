@@ -1,5 +1,5 @@
 ---
-title: NeurIPS
+title: New Publications from our group
 date: 2025-09-19
 featured: true
 # permalink: False
