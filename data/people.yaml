@@ -1,10 +1,15 @@
 - name: Amartya Sanyal
-  role: Tenure Track Assistant Professor
+  role: Tenure Track Assistant Professor~(PI)
   school: UCPH
   first: Amartya
   img: /assets/people/amartya.jpg
   web: https://amartya18x.github.io
-
+- name: Vikrant Singhal
+  role: Assistant Professor(from Jan 2026)
+  school: UCPH
+  first: Vikrant
+  img: /assets/people/vikrant.jpg
+  web: https://www.vikrantsinghal.com/o
 - name: Johanna Düngler
   role: PhD Student
   first: Johanna
