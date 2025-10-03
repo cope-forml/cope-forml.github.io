@@ -1,5 +1,5 @@
 ---
-title: Three Papers Accepted at TPDP 2025
+title: Three new members join FoRML
 date: 2025-10-01
 featured: true
 # permalink: False
