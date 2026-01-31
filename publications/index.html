@@ -19,6 +19,16 @@
     body { font-family:'Inter',sans-serif; background: #fafafa; }
     h1, h2, h3 { font-family:'Source Serif Pro',serif; }
   </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
 <header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
@@ -28,6 +38,7 @@
   <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
     <a href="/people/" class="nav-link hover:text-accent">People</a>
     <a href="/publications/" class="nav-link hover:text-accent">Publications</a>
+    <a href="/blog/" class="nav-link hover:text-accent">Blog</a>
     <a href="/news/" class="nav-link hover:text-accent">News</a>
     <a href="/openings/" class="nav-link hover:text-accent">Openings</a>
   </nav>
@@ -132,10 +143,10 @@
         
       
 
-      <article id="online-hu-2025" class="paper-card" data-topics="privacy,theory,llms" data-tags="online learning,unlearning,privacy,llms">
+      <article id="lora-hu-2025" class="paper-card" data-topics="privacy,theory,llms" data-tags="online learning,unlearning,privacy,llms">
         <span class="accent-bar"></span>
         <div class="p-4 pl-5">
-          <h3 class="title">Online Learning and Unlearning</h3>
+          <h3 class="title">LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)</h3>
           <p class="authors">Yaxi Hu, Johanna Düngler, Bernhard Schölkopf, Amartya Sanyal</p>
 <div class="flex items-center gap-4 mb-1">
   <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
@@ -156,8 +167,8 @@
               
             
             <button class="action-btn bibtex-btn"
-              data-slug="online-hu-2025"
-    data-title="Online Learning and Unlearning"
+              data-slug="lora-hu-2025"
+    data-title="LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)"
     data-authors="Hu, Yaxi and Düngler, Johanna and Schölkopf, Bernhard and Sanyal, Amartya"
     data-year="2025"
     data-venue="Preprint (Preprint)"

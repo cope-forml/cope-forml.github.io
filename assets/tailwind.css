@@ -33,6 +33,140 @@
   .nav-link:focus {
     @apply bg-gray-200 text-accent;
   }
+
+  /* Blog post typography */
+  .blog-prose {
+    @apply text-lg leading-relaxed text-gray-800;
+    max-width: 72ch;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .blog-lede {
+    @apply text-xl leading-relaxed text-gray-700;
+  }
+  .callout {
+    @apply my-8 rounded-xl border border-gray-200 bg-gray-50/80 px-5 py-4;
+  }
+  .callout-title {
+    @apply text-xs uppercase tracking-widest text-gray-600 font-semibold mb-2;
+  }
+  .callout-tldr {
+    @apply border-l-4 border-accent bg-red-50/40;
+  }
+  .callout-notation {
+    @apply border-l-4 border-gray-300 bg-gray-50;
+  }
+  .callout-key {
+    @apply border-l-4 border-gray-400 bg-white;
+  }
+  .callout-theorem {
+    @apply border-l-4 border-gray-800 bg-gray-50;
+  }
+  .blog-figure {
+    @apply my-8 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm;
+  }
+  .blog-figure img {
+    @apply rounded-xl shadow-sm;
+    max-width: 600px;
+    width: 72%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .blog-figure figcaption {
+    @apply text-sm text-gray-500 text-center mt-2;
+  }
+  .blog-prose h1 {
+    @apply text-5xl font-semibold tracking-tight mt-10 mb-4;
+  }
+  .blog-prose h2 {
+    @apply text-5xl font-semibold tracking-tight mt-12 mb-4 border-b border-gray-200 pb-2 text-gray-900;
+  }
+  .blog-prose h3 {
+    @apply text-4xl font-semibold tracking-tight mt-10 mb-3 text-gray-900 border-l-4 border-gray-200 pl-3;
+  }
+  .blog-prose h4 {
+    @apply text-2xl font-semibold tracking-tight mt-8 mb-2 text-gray-900;
+  }
+  .blog-prose p {
+    @apply my-5 text-gray-800;
+  }
+  .blog-prose a {
+    @apply text-accent underline underline-offset-4;
+  }
+  .blog-prose ul {
+    @apply list-disc list-outside pl-8 my-4;
+  }
+  .blog-prose ol {
+    @apply list-decimal list-outside pl-8 my-4;
+  }
+  .blog-prose li {
+    @apply my-2;
+  }
+  .blog-prose li::marker {
+    @apply text-accent;
+  }
+  .blog-prose blockquote {
+    @apply border-l-4 border-accent bg-red-50/60 pl-6 pr-5 py-4 my-8 text-gray-800 rounded-lg shadow-sm font-medium not-italic;
+  }
+  .blog-prose blockquote p {
+    @apply my-0;
+  }
+  .blog-prose img {
+    @apply my-8 rounded-xl shadow-sm;
+    max-width: 600px;
+    width: 72%;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  @media (max-width: 640px) {
+    .blog-prose img {
+      width: 100%;
+      max-width: 100%;
+    }
+    .blog-figure img {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+  .blog-prose hr {
+    @apply my-8 border-gray-200;
+  }
+  .blog-prose table {
+    @apply w-full text-base my-6 border-collapse;
+  }
+  .blog-prose thead th {
+    @apply text-left text-xs uppercase tracking-widest text-gray-600 border-b border-gray-200 pb-2;
+  }
+  .blog-prose td {
+    @apply border-b border-gray-100 py-2;
+  }
+  .blog-prose strong {
+    @apply font-semibold text-gray-900;
+  }
+  .blog-prose code {
+    @apply px-1.5 py-0.5 rounded bg-gray-100 text-sm;
+  }
+  .blog-prose pre {
+    @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto my-6;
+  }
+  .blog-prose pre code {
+    @apply bg-transparent p-0 text-sm;
+  }
+  .blog-prose .MathJax_Display {
+    @apply my-8;
+    font-size: 1.05em;
+    overflow-x: auto;
+  }
+  .blog-prose mjx-container[jax="CHTML"] {
+    font-size: 1.02em;
+  }
+  .blog-prose mjx-container[display="true"] {
+    font-size: 1.06em;
+  }
 }
 
 /* General: bigger default font, better readability */

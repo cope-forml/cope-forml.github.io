@@ -1,0 +1,331 @@
+ <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-69X81VG1GW"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-69X81VG1GW');
+</script>
+  <title>LoRA and Privacy: When Random Projections Help (and When They Don&#39;t) | Foundations of Responsible Machine Learning @ UCPH</title>
+  <link rel="stylesheet" href="/assets/site.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family:'Inter',sans-serif; background: #fafafa; }
+    h1, h2, h3 { font-family:'Source Serif Pro',serif; }
+  </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
+  <a href="/" class="text-5xl font-bold tracking-tight text-accent font-serif whitespace-nowrap">
+    FoRML
+  </a>
+  <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
+    <a href="/people/" class="nav-link hover:text-accent">People</a>
+    <a href="/publications/" class="nav-link hover:text-accent">Publications</a>
+    <a href="/blog/" class="nav-link hover:text-accent">Blog</a>
+    <a href="/news/" class="nav-link hover:text-accent">News</a>
+    <a href="/openings/" class="nav-link hover:text-accent">Openings</a>
+  </nav>
+</header>
+
+ <main class="max-w-5xl mx-auto px-4">
+  
+<article class="bg-white rounded-2xl p-8 shadow border-l-4 border-accent max-w-4xl mx-auto">
+  <header class="mb-6">
+    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight">LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)</h1>
+    
+      <p class="text-lg text-accent font-semibold mt-3">By Yaxi Hu</p>
+    
+    <p class="text-xs uppercase tracking-widest text-gray-500 mt-2">
+      2026-01-31
+    </p>
+    
+      <p class="blog-lede mt-4">A short note on why random projection alone fails to create distributional overlap for DP.</p>
+    
+  </header>
+  <div class="prose blog-prose max-w-none">
+    <p>Low-Rank Adaptation (LoRA) is a common way to fine-tune large models efficiently.
+To build intuition, zoom in on a single linear layer: the layer takes an input vector
+$x \in \mathbb{R}^{d}$ and produces an output
+$$y = Wx,$$
+where the weight matrix is $W \in \mathbb{R}^{d \times n}$.</p>
+<p>LoRA freezes the pretrained weight $W_0$ and inserts trainable low-rank adapters
+$A \in \mathbb{R}^{d \times r}$ and $B \in \mathbb{R}^{r \times n}$ with
+$r \ll \min(d, n)$,
+$$W = W_0 + \alpha AB.$$</p>
+<figure class="blog-figure"><img src="/assets/blog/2026-01-why-intuition/lora_trapezoids_min_arrows_v5.png" alt="LoRA low-rank adapters around a frozen base weight"/><figcaption>
+Figure 1: LoRA freezes $W_0$ and learns low-rank factors $A$ and $B$.
+</figcaption></figure>
+<p>A common initialization is:</p>
+<ul>
+<li>$A$ is randomly initialized with i.i.d. entries $\sim N(0, 1/r)$,</li>
+<li>$B$ is initialized to zero (so initially $W = W_0$).</li>
+</ul>
+<p>Instead of training a full $d \times n$ matrix, LoRA trains only $A$ and $B$, with a
+total of $r(d+n) \ll dn$ parameters.
+This can &quot;throw away&quot; some gradient information compared to full fine-tuning (FFT), which:</p>
+<ol>
+<li>does not introduce this structured random initialization, and</li>
+<li>uses the full gradient matrix (rather than a low-rank structured update).</li>
+</ol>
+<p>Empirically, membership inference attacks (MIAs) often succeed less on LoRA than on FFT,
+and LoRA-tuned models often show lower memorization scores.
+So it is natural to ask:</p>
+<div class="callout callout-key"><p class="callout-title">Key questions</p><ul>
+<li><strong>Does LoRA already give differential privacy (DP) for free?</strong></li>
+<li><strong>Can inherent randomness in LoRA amplify DP-LoRA's privacy?</strong></li>
+</ul>
+</div>
+<div class="callout callout-tldr"><p class="callout-title">TL;DR</p><ul>
+<li>For vector gradients, random projection can satisfy DP under alignment assumptions (Theorem 1).</li>
+<li>For matrix gradients, projection alone fails because output distributions do not overlap.</li>
+<li>Adding noise restores overlap; projection can then act as a privacy amplifier.</li>
+</ul>
+</div>
+<div class="callout"><p class="callout-title">What this post covers</p><ol>
+<li>Why the first LoRA step looks like a random projection.</li>
+<li>A formal DP guarantee for vector gradients.</li>
+<li>Why the guarantee breaks for matrix gradients.</li>
+<li>How adding noise makes projection useful again (M1 and M2).</li>
+</ol>
+</div>
+<h2>The first step of LoRA looks like a random projection</h2>
+<p>A useful lens (pointed out in prior work) is that the first LoRA update can be viewed
+as a random projection of the gradient.</p>
+<p>For one gradient step, LoRA updates $W$ as
+$$W_1 = W_0 - \eta \nabla_W \mathcal{L}(W) A^\top A.$$</p>
+<p>Let the gradient be $V$ (either a vector $V \in \mathbb{R}^d$ or a matrix
+$V \in \mathbb{R}^{d \times m}$).
+The first descent step of LoRA uses a compressed gradient that can be written (up to transpose) as
+$$A(V) = MV,$$
+where $M = A^\top A$ (for Gaussian initialization) is a rank-$r$ Wishart matrix
+$M \sim W_d(\tfrac{1}{r} I_d, r)$.</p>
+<p>So the privacy of the first LoRA step is roughly the privacy of a random projection
+mechanism on gradients.</p>
+<h3>Vector case: a formal privacy guarantee holds</h3>
+<div class="callout callout-notation"><p class="callout-title">Notation</p><ul>
+<li>$\mathcal{D}$: a collection of datasets.</li>
+<li>$V(S)$: the gradient vector computed from dataset $S$.</li>
+<li>$S \sim_H S'$: neighboring datasets under the chosen adjacency relation.</li>
+</ul>
+</div>
+<p>When the gradient is a vector $V \in \mathbb{R}^d$, we can prove a meaningful DP guarantee
+for the projection mechanism $V \mapsto MV$, where
+$M \sim W_d(\tfrac{1}{r} I_d, r)$.</p>
+<p>Assume all gradient vectors are normalized, i.e., $\forall V \in \mathcal{D}$,
+$\lVert V \rVert_2 = 1$.
+Define the minimum alignment of the dataset collection as
+$$
+\rho = \min_{S \sim_H S' \in \mathcal{D}} V^\top V'.
+$$</p>
+<div class="callout callout-key"><p class="callout-title">Key idea</p><p>With enough alignment between neighboring gradients, a random low-rank projection behaves
+like a noisy mechanism and can satisfy DP.</p>
+</div>
+<div class="callout callout-theorem"><p class="callout-title">Theorem 1 (Vector-case DP bound)</p><p>Let $\delta' &gt; 0$.
+For a dataset collection $\mathcal{D}$ with minimum alignment
+$\rho &gt; \tfrac{t_r(1-\delta')}{\sqrt{r + t_r(1-\delta')^2}}$, the projection mechanism
+with rank $r$ is $(\epsilon, \delta)$-DP on $\mathcal{D}$, with</p>
+<p>$$
+\delta_\rho = \mathbb{E}_{x\sim \chi_r^2}[\Phi(-\rho\sqrt{x}/\sqrt{1-\rho^2})] + 3\delta'
+$$</p>
+<p>$$
+\epsilon_\rho \leq \frac{d + r -1}{2}\ln (\rho + K) +
+\frac{(1-\rho + K)\kappa_{d + r-1}(1-\delta')}{2(\rho - K)}
+$$</p>
+<p>Here $K = \sqrt{\tfrac{1-\rho^2}{r}} t_r(1-\delta')$.</p>
+</div>
+<p>At a high level, the proof upper bounds the privacy loss random variable with high
+probability.
+Because the mechanism involves a random low-rank transform, the supports of two neighboring
+distributions can be non-overlapping.
+The first term captures this effect:
+$$
+\mathbb{E}_{x\sim \chi_r^2}[\Phi(-\rho\sqrt{x}/\sqrt{1-\rho^2})] =
+\Pr(Y \in \text{Supp}(MV'), Y \notin \text{Supp}(MV)).
+$$</p>
+<p>The parameter $\rho$ plays a role similar to sensitivity in classic DP analysis with additive noise.
+As illustrated in the plot, for fixed $\delta = 0.01$, the privacy parameter $\varepsilon$
+decreases with better alignment $\rho$.
+In early steps of training, it is reasonable to assume the gradient norm is bounded away from zero.
+Consequently, this term scales like $\rho = 1 - \tfrac{c}{B^2}$ where $B$ is the batch size
+and $c$ is a constant.</p>
+<figure class="blog-figure"><img src="/assets/blog/2026-01-why-intuition/epsilon_vs_r_fixed_d.png" alt="Privacy parameter versus rank for fixed dimension"/><figcaption>
+Figure 2: Example dependence of $\varepsilon$ on rank $r$ for fixed $d$ and $\delta$.
+</figcaption></figure>
+<h3>Matrix case: without additive noise, random projection gives no DP</h3>
+<p>LoRA is ultimately used on matrices, not just vectors.
+In the matrix case, the projection-only mechanism runs into a fundamental obstacle:
+for any two different gradient matrices $V, V'$ (from neighboring datasets), the transformed
+outputs are almost surely separated, which prevents any DP guarantee.
+$$\Pr(MV = MV') = 0 \quad \text{for } V \neq V'.$$</p>
+<h3>Why is this intuition true?</h3>
+<p>Write $M = A^\top A$ where $A \in \mathbb{R}^{r\times d}$ and each row of $A$ is a Gaussian
+random vector $\sim N(0, \tfrac{1}{r} I_d)$.
+Then,
+$$MV = MV' \quad \Longleftrightarrow \quad A^\top A(V - V') = 0.$$</p>
+<p>A sufficient condition for this is $A(V - V') = 0$.
+But $V - V' \neq 0$ means its null space is a strictly lower-dimensional subspace.
+A continuous Gaussian vector (one row of $A$) lands exactly in that subspace with probability 0.
+So, almost surely, the projection distinguishes $V$ from $V'$.</p>
+<p>In other words, projection by itself does not create the distributional overlap DP needs.
+If later steps also do not add noise, then by DP's post-processing property, one cannot
+&quot;recover DP later&quot; just by continuing to train.</p>
+<p>Empirically, we show this failure mode in a toy setting: for a small CNN trained with
+LoRA-FA (freezing random $A$ and only learning $B$) on CIFAR-10, a membership inference
+attack can become nearly perfect (AUC &gt; 0.99).</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Metric</th>
+<th>16</th>
+<th>32</th>
+<th>128</th>
+<th>256</th>
+<th>512</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Train from scratch</td>
+<td>Test Acc (%)</td>
+<td>57.31</td>
+<td>61.76</td>
+<td>66.36</td>
+<td>67.34</td>
+<td>68.36</td>
+</tr>
+<tr>
+<td>Train from scratch</td>
+<td>AUC (%)</td>
+<td>99.86</td>
+<td>99.64</td>
+<td>100.00</td>
+<td>100.00</td>
+<td>100.00</td>
+</tr>
+</tbody>
+</table>
+<h2>When can random projection actually help privacy?</h2>
+<p>The projection mechanism fails for matrices because the output distributions do not overlap.
+The standard DP trick of adding noise fixes this.
+Once we add noise so the distributions overlap everywhere, random projection can become useful
+again as a privacy amplifier rather than a source of privacy on its own.</p>
+<p>Two natural variants are:</p>
+<p><strong>(M1) Project, then add noise</strong>
+$$
+V \mapsto MV + E
+$$
+where $E$ is a Gaussian noise matrix.</p>
+<p><strong>(M2) Add noise, then project</strong>
+$$
+V \mapsto M(V + E)
+$$</p>
+<p>Very roughly:</p>
+<ul>
+<li>(M1) can give amplification when $r$ is large and we impose alignment constraints
+on gradient matrices (similar to Theorem 1).</li>
+<li>(M2) is often cleaner to analyze: the random projection acts as post-processing of a DP
+algorithm, which can only help, especially when $r$ is small.</li>
+</ul>
+<h3>Privacy amplification by random projection (M1)</h3>
+<p>We begin with an intuition for why $V \mapsto MV$ fails to preserve DP for a matrix $V$
+under a one-column adjacency notion.</p>
+<p><strong>One-column adjacency.</strong> Two matrices $V, V' \in \mathbb{R}^{d\times m}$ satisfy one-column
+adjacency if they are identical except in one column $j$,
+$$V_{-j} = V'_{-j}\quad \text{but } v_j \neq v_j'.$$</p>
+<figure class="blog-figure"><img src="/assets/blog/2026-01-why-intuition/one_column_adjacency_redraw.png" alt="One-column adjacency illustration"/><figcaption>
+Figure 3: One-column adjacency changes only one column of the gradient matrix.
+</figcaption></figure>
+<p>Now imagine an adversary who already knows the shared columns $V_{-j}$.
+If we release $MV$, then the adversary also gets $M V_{-j}$.
+Key intuition:</p>
+<ul>
+<li>If the columns of $V_{-j}$ span enough directions, then knowing both $V_{-j}$ and
+$M V_{-j}$ can effectively reveal $M$ (or at least pin down the subspace it falls in).</li>
+<li>Once $M$ is exposed, the remaining column is no longer protected: the adversary can use
+$M v_j$ to infer information about $v_j$.</li>
+</ul>
+<p>So any hope of privacy amplification has to come from the opposite regime: $M$ is not fully
+exposed by the other columns.
+Intuitively, this requires the rank $r$ of $M$ to be larger than what $V_{-j}$ can reveal,
+i.e., $V_{-j}$ does not span the whole space of $M$.</p>
+<p>Hence, it is helpful to decompose
+$$M = M_\parallel + M_\perp$$
+where:</p>
+<ul>
+<li>$M_\parallel$ is the component of $M$ determined once $M V_{-j}$ is revealed (the exposed component),</li>
+<li>$M_\perp$ is the component that remains hidden even after revealing $M V_{-j}$ (the unexposed component).</li>
+</ul>
+<p>With this split, we can argue privacy for the column $M v_j$ by combining two pieces:</p>
+<ol>
+<li>Hidden part behaves like the vector case: $M_\perp v_j$ can inherit a DP guarantee from the
+vector mechanism analysis using the randomness in $M_\perp$.</li>
+<li>Exposed part can be handled with carefully scaled noise $E$. Specifically, $M_\parallel v_j$
+can be made private by adding noise scaled to its directional sensitivity, which can be
+smaller than the worst-case sensitivity of $M v_j$ because $M_\parallel$ lives in a more
+restricted subspace.</li>
+</ol>
+<p>Finally, in the LoRA setting, gradients $V, V'$ of neighboring datasets are not guaranteed to
+differ in only one column.
+To connect one-column adjacency to a full matrix adjacency notion, we can use a chain argument
+(analogous to group privacy): we build a path
+$$V^{(0)} \sim V^{(1)} \sim \dots \sim V^{(k)}$$
+where each pair differs in only one column, but $V^{(0)}$ and $V^{(k)}$ differ in $k$ columns overall.
+This lets us lift the one-column privacy bound to larger changes by composing along the chain.</p>
+<figure class="blog-figure"><img src="/assets/blog/2026-01-why-intuition/neighbor_chain_nice.png" alt="Neighbor chain argument illustration"/><figcaption>
+Figure 4: Chain argument lifts one-column privacy to matrix adjacency.
+</figcaption></figure>
+<h3>Privacy amplification by random projection (M2)</h3>
+<p>In (M2), the random projection happens after adding noise.
+When the rank of $M$ is small, this can yield a privacy amplification effect through
+dimension reduction.</p>
+<p>The core intuition is that a random $r$-dimensional subspace captures about an $r/d$ fraction
+of the energy of a typical direction.
+Let $P_M$ be the projector onto the column space of $M$.
+Then typically (e.g., in expectation),
+$$
+|P_M \Delta V|_F^2 \approx (r/d),|\Delta V|_F^2.
+$$
+So the effective sensitivity shrinks, and smaller sensitivity means less noise is needed for
+the same privacy level.
+In our paper, we use the same intuition to prove a high-probability version that allows for
+tighter privacy accounting.</p>
+<p>Empirically, if we fix a privacy level and fine-tune a pretrained ResNet-50 privately on CIFAR-10,
+we observe that for very strict privacy (small $\varepsilon$), compressed DP-SGD (M2) with tight
+accounting can outperform both DP-LoRA-FA and standard DP-SGD.
+Moreover, this method can outperform DP-LoRA-FA across ranks.</p>
+<figure class="blog-figure"><img src="/assets/blog/2026-01-why-intuition/dp_lora_vs_ours_plots.png" alt="Privacy-accuracy tradeoff comparisons"/><figcaption>
+Figure 5: Example privacy-accuracy tradeoffs across DP-SGD baselines and LoRA variants.
+</figcaption></figure>
+
+  </div>
+</article>
+
+<div class="mt-8">
+  <a href="/blog/" class="text-accent hover:underline">&larr; Back to Blog</a>
+</div>
+
+</main>
+
+<footer class="mt-24 text-base text-gray-400 border-t pt-16 pb-20 max-w-4xl mx-auto px-4">
+  © 2026 Amartya Sanyal  · FoRML · University of Copenhagen
+</footer>
+</body>
+</html>
