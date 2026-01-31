@@ -19,6 +19,16 @@
     body { font-family:'Inter',sans-serif; background: #fafafa; }
     h1, h2, h3 { font-family:'Source Serif Pro',serif; }
   </style>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
 <header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
@@ -28,6 +38,7 @@
   <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
     <a href="{{ '/people/' | url }}" class="nav-link hover:text-accent">People</a>
     <a href="{{ '/publications/' | url }}" class="nav-link hover:text-accent">Publications</a>
+    <a href="{{ '/blog/' | url }}" class="nav-link hover:text-accent">Blog</a>
     <a href="{{ '/news/' | url }}" class="nav-link hover:text-accent">News</a>
     <a href="{{ '/openings/' | url }}" class="nav-link hover:text-accent">Openings</a>
   </nav>

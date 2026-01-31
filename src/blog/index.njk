@@ -1,0 +1,27 @@
+---
+layout: base.njk
+title: Blog
+permalink: /blog/index.html
+---
+
+<h1 class="text-3xl font-semibold mb-10">Blog</h1>
+<div class="space-y-6">
+  {% for post in collections.blog %}
+    <article class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
+      <header class="flex flex-col gap-2">
+        <a href="{{ post.url }}" class="text-xl font-semibold hover:text-accent">{{ post.data.title }}</a>
+        <span class="text-xs text-gray-500">
+          {{ post.date | date('yyyy-LL-dd') }}{% if post.data.author %} · {{ post.data.author }}{% endif %}
+        </span>
+      </header>
+      {% if post.data.summary %}
+        <p class="text-gray-700 mt-3">{{ post.data.summary }}</p>
+      {% endif %}
+      <div class="mt-4">
+        <a href="{{ post.url }}" class="text-accent hover:underline">Read more &rarr;</a>
+      </div>
+    </article>
+  {% else %}
+    <div class="text-gray-500">No blog posts yet.</div>
+  {% endfor %}
+</div>

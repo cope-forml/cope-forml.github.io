@@ -2,9 +2,13 @@ const fs = require('fs');
 const { DateTime } = require('luxon');
 const bibtexParse = require('bibtex-parse-js');
 const path = require('path');
+const markdownIt = require('markdown-it');
 
 
 module.exports = function (eleventyConfig) {
+  const md = markdownIt({ html: true, breaks: false, linkify: true });
+  eleventyConfig.setLibrary('md', md);
+
   // Pass‑through static assets
   eleventyConfig.addPassthroughCopy({ 'src/assets': 'assets' });
 
@@ -49,6 +53,25 @@ eleventyConfig.addCollection('openings', api => {
   const openings = api.getFilteredByGlob('./src/content/openinglist/*.md');
   return openings.sort((a, b) => b.date - a.date);
 });
+
+eleventyConfig.addCollection('blog', api => {
+  const posts = api.getFilteredByGlob('./src/content/blog/*.md');
+  return posts.sort((a, b) => b.date - a.date);
+});
+
+  // Shortcodes ------------------------------------------------
+  eleventyConfig.addPairedShortcode('callout', (content, title = '', variant = '') => {
+    const variantClass = variant ? ` callout-${variant}` : '';
+    const titleHtml = title ? `<p class="callout-title">${title}</p>` : '';
+    const bodyHtml = md.render(content);
+    return `<div class="callout${variantClass}">${titleHtml}${bodyHtml}</div>`;
+  });
+
+  eleventyConfig.addPairedShortcode('figure', (content, src, alt = '') => {
+    const caption = content ? md.renderInline(content) : '';
+    const captionHtml = caption ? `<figcaption>${caption}</figcaption>` : '';
+    return `<figure class="blog-figure"><img src="${src}" alt="${alt}"/>${captionHtml}</figure>`;
+  });
 
 const slugify = require("slugify");
 

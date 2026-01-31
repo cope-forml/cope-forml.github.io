@@ -1,0 +1,25 @@
+---
+layout: base.njk
+---
+
+<article class="bg-white rounded-2xl p-8 shadow border-l-4 border-accent max-w-4xl mx-auto">
+  <header class="mb-6">
+    <h1 class="text-4xl sm:text-5xl font-semibold tracking-tight">{{ title }}</h1>
+    {% if author %}
+      <p class="text-lg text-accent font-semibold mt-3">By {{ author }}</p>
+    {% endif %}
+    <p class="text-xs uppercase tracking-widest text-gray-500 mt-2">
+      {{ page.date | date('yyyy-LL-dd') }}
+    </p>
+    {% if summary %}
+      <p class="blog-lede mt-4">{{ summary }}</p>
+    {% endif %}
+  </header>
+  <div class="prose blog-prose max-w-none">
+    {{ content | safe }}
+  </div>
+</article>
+
+<div class="mt-8">
+  <a href="{{ '/blog/' | url }}" class="text-accent hover:underline">&larr; Back to Blog</a>
+</div>
