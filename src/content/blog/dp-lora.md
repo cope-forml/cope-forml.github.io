@@ -4,6 +4,7 @@ date: 2026-01-31
 author: Yaxi Hu
 summary: A short note on why random projection alone fails to create distributional overlap for DP.
 image_dir: /assets/blog/2026-01-why-intuition
+ready: false
 ---
 
 Low-Rank Adaptation (LoRA) is a common way to fine-tune large models efficiently.

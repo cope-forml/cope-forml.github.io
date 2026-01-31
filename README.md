@@ -81,6 +81,7 @@ This starts Eleventy’s dev server and watches Tailwind CSS. Open the local URL
    author: Firstname Lastname
    summary: One-sentence teaser for the blog list page.
    image_dir: /assets/blog/your-post-slug
+   ready: true
    ---
    Your blog post content goes here (Markdown supported).
    ```

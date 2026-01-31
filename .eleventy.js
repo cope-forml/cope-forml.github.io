@@ -56,7 +56,9 @@ eleventyConfig.addCollection('openings', api => {
 
 eleventyConfig.addCollection('blog', api => {
   const posts = api.getFilteredByGlob('./src/content/blog/*.md');
-  return posts.sort((a, b) => b.date - a.date);
+  return posts
+    .filter(p => p.data && p.data.ready === true)
+    .sort((a, b) => b.date - a.date);
 });
 
   // Shortcodes ------------------------------------------------
