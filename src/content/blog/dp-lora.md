@@ -2,10 +2,13 @@
 title: "LoRA and Privacy: When Random Projections Help (and When They Don't)"
 date: 2026-01-31
 author: Yaxi Hu
-summary: A short note on why random projection alone fails to create distributional overlap for DP.
+summary: 
 image_dir: /assets/blog/2026-01-why-intuition
-ready: false
+ready: true
 ---
+
+
+*Based on the work [LoRA and Privacy: When Random Projections Help (and When They Don't)](https://arxiv.org/abs/2601.21719) by Yaxi Hu\*, Johanna Düngler\*, Bernhard Schölkopf, and Amartya Sanyal.*
 
 Low-Rank Adaptation (LoRA) is a common way to fine-tune large models efficiently.
 To build intuition, zoom in on a single linear layer: the layer takes an input vector
@@ -30,7 +33,7 @@ Instead of training a full $d \times n$ matrix, LoRA trains only $A$ and $B$, wi
 total of $r(d+n) \ll dn$ parameters.
 This can "throw away" some gradient information compared to full fine-tuning (FFT), which:
 1. does not introduce this structured random initialization, and
-2. uses the full gradient matrix (rather than a low-rank structured update).
+2. uses the full gradient matrix (rather than a low-rank update).
 
 Empirically, membership inference attacks (MIAs) often succeed less on LoRA than on FFT,
 and LoRA-tuned models often show lower memorization scores.
@@ -42,35 +45,35 @@ So it is natural to ask:
 {% endcallout %}
 
 {% callout 'TL;DR', 'tldr' %}
-- For vector gradients, random projection can satisfy DP under alignment assumptions (Theorem 1).
-- For matrix gradients, projection alone fails because output distributions do not overlap.
-- Adding noise restores overlap; projection can then act as a privacy amplifier.
+- For vector gradients, a random low-rank projection can satisfy DP on a restricted dataset family under an alignment assumption (Theorem 1).
+- For matrix gradients, projection-only can fail because the same randomness is reused across columns, allowing reconstruction of the projection.
+- Adding noise restores distributional overlap; random projections can then act as privacy amplifiers.
 {% endcallout %}
 
 {% callout 'What this post covers' %}
 1. Why the first LoRA step looks like a random projection.
 2. A formal DP guarantee for vector gradients.
-3. Why the guarantee breaks for matrix gradients.
-4. How adding noise makes projection useful again (M1 and M2).
+3. Why the guarantee breaks for matrix gradients without added noise.
+4. How adding noise makes projection useful again.
 {% endcallout %}
 
 ## The first step of LoRA looks like a random projection
-
 A useful lens (pointed out in prior work) is that the first LoRA update can be viewed
-as a random projection of the gradient.
+as applying a random low-rank transform to the gradient.
 
-For one gradient step, LoRA updates $W$ as
+To keep the algebra clean, consider FA-LoRA (freeze random $A$, learn $B$) with $B_0=0$.
+A single gradient step gives
 $$W_1 = W_0 - \eta \nabla_W \mathcal{L}(W) A^\top A.$$
 
-Let the gradient be $V$ (either a vector $V \in \mathbb{R}^d$ or a matrix
-$V \in \mathbb{R}^{d \times m}$).
-The first descent step of LoRA uses a compressed gradient that can be written (up to transpose) as
+
+Let the gradient be $V := \nabla_W \mathcal{L}(W_0)$ (either a vector $V \in \mathbb{R}^{d}$ or a matrix
+$V \in \mathbb{R}^{d \times m}$, depending on context).
+Then the first descent step uses a compressed gradient of the form
 $$A(V) = MV,$$
 where $M = A^\top A$ (for Gaussian initialization) is a rank-$r$ Wishart matrix
 $M \sim W_d(\tfrac{1}{r} I_d, r)$.
 
-So the privacy of the first LoRA step is roughly the privacy of a random projection
-mechanism on gradients.
+So the privacy of the first LoRA step is closely tied to the privacy of a random projection mechanism on gradients.
 
 ### Vector case: a formal privacy guarantee holds
 
@@ -82,7 +85,7 @@ mechanism on gradients.
 
 When the gradient is a vector $V \in \mathbb{R}^d$, we can prove a meaningful DP guarantee
 for the projection mechanism $V \mapsto MV$, where
-$M \sim W_d(\tfrac{1}{r} I_d, r)$.
+$M \sim W_d(\tfrac{1}{r} I_d, r)$ provided we restrict attention to dataset families where neighboring gradients are sufficiently aligned.
 
 Assume all gradient vectors are normalized, i.e., $\forall V \in \mathcal{D}$,
 $\lVert V \rVert_2 = 1$.
@@ -92,7 +95,7 @@ $$
 $$
 
 {% callout 'Key idea', 'key' %}
-With enough alignment between neighboring gradients, a random low-rank projection behaves
+With sufficient alignment between neighboring gradients, a random low-rank projection behaves
 like a noisy mechanism and can satisfy DP.
 {% endcallout %}
 
@@ -114,6 +117,14 @@ $$
 Here $K = \sqrt{\tfrac{1-\rho^2}{r}} t_r(1-\delta')$.
 {% endcallout %}
 
+where
+{% callout 'Additional Notations', 'notation' %}
+- $\Phi(\cdot)$: the CDF of a standard normal $N(0,1)$.
+- $\chi_r^2$: a chi-square random variable with $r$ degrees of freedom.
+- $t_r(p)$: the $p$-quantile of a Student-$t$ distribution with $r$ degrees of freedom, i.e., $\Pr(T\le t_r(p))=p$ for $T\sim t_r$.
+- $\kappa_k(p)$: the $p$-quantile of a chi-square distribution with $k$ degrees of freedom, i.e., $\Pr(X\le \kappa_k(p))=p$ for $X\sim \chi_k^2$.
+{% endcallout %}
+
 At a high level, the proof upper bounds the privacy loss random variable with high
 probability.
 Because the mechanism involves a random low-rank transform, the supports of two neighboring
@@ -124,18 +135,20 @@ $$
 \Pr(Y \in \text{Supp}(MV'), Y \notin \text{Supp}(MV)).
 $$
 
-The parameter $\rho$ plays a role similar to sensitivity in classic DP analysis with additive noise.
+The parameter $\rho$ plays a role reminiscent of sensitivity in
+classic DP analysis with additive noise: 
+better alignment (larger $\rho$) leads to smaller $\varepsilon$ at a fixed $\delta$.
 As illustrated in the plot, for fixed $\delta = 0.01$, the privacy parameter $\varepsilon$
 decreases with better alignment $\rho$.
-In early steps of training, it is reasonable to assume the gradient norm is bounded away from zero.
-Consequently, this term scales like $\rho = 1 - \tfrac{c}{B^2}$ where $B$ is the batch size
+In early steps of training, it is reasonable to assume the gradient norm is bounded away from zero;
+consequently, this term scales like $\rho = 1 - \tfrac{c}{B^2}$ where $B$ is the batch size
 and $c$ is a constant.
 
 {% figure image_dir ~ '/epsilon_vs_r_fixed_d.png', 'Privacy parameter versus rank for fixed dimension' %}
 Figure 2: Example dependence of $\varepsilon$ on rank $r$ for fixed $d$ and $\delta$.
 {% endfigure %}
 
-### Matrix case: without additive noise, random projection gives no DP
+### Matrix case: without additive noise, projection-only is not DP
 
 LoRA is ultimately used on matrices, not just vectors.
 In the matrix case, the projection-only mechanism runs into a fundamental obstacle:
@@ -155,9 +168,15 @@ But $V - V' \neq 0$ means its null space is a strictly lower-dimensional subspac
 A continuous Gaussian vector (one row of $A$) lands exactly in that subspace with probability 0.
 So, almost surely, the projection distinguishes $V$ from $V'$.
 
+{% callout 'Theorem 2 (Projection-only can break DP)', 'theorem' %}
+For the projection mechanism $\mathcal{A}(S)=M f(S)$ with a non-trivial matrix-valued query $f$, there exist neighboring datasets $S\sim_H S'$ and an event $E$ such that
+$$
+\Pr(\mathcal{A}(S)\in E)=1 \quad\text{and}\quad \Pr(\mathcal{A}(S')\in E)=0.
+$$
+So $\mathcal{A}$ is **not** $(\varepsilon,\delta)$-DP for any $\varepsilon$ and any $\delta<1$.
+{% endcallout %}
+
 In other words, projection by itself does not create the distributional overlap DP needs.
-If later steps also do not add noise, then by DP's post-processing property, one cannot
-"recover DP later" just by continuing to train.
 
 Empirically, we show this failure mode in a toy setting: for a small CNN trained with
 LoRA-FA (freezing random $A$ and only learning $B$) on CIFAR-10, a membership inference
@@ -191,8 +210,8 @@ $$
 Very roughly:
 - (M1) can give amplification when $r$ is large and we impose alignment constraints
   on gradient matrices (similar to Theorem 1).
-- (M2) is often cleaner to analyze: the random projection acts as post-processing of a DP
-  algorithm, which can only help, especially when $r$ is small.
+- (M2) is often simpler to analyze: the random projection acts as post-processing of a DP
+  algorithm which helps to improve DP especially when $r$ is small.
 
 ### Privacy amplification by random projection (M1)
 
@@ -218,7 +237,8 @@ Key intuition:
 So any hope of privacy amplification has to come from the opposite regime: $M$ is not fully
 exposed by the other columns.
 Intuitively, this requires the rank $r$ of $M$ to be larger than what $V_{-j}$ can reveal,
-i.e., $V_{-j}$ does not span the whole space of $M$.
+i.e., $V_{-j}$ does not span the whole space of $M$ and when additive
+noise hides what is still leaked.
 
 Hence, it is helpful to decompose
 $$M = M_\parallel + M_\perp$$
@@ -272,5 +292,3 @@ Moreover, this method can outperform DP-LoRA-FA across ranks.
 {% figure image_dir ~ '/dp_lora_vs_ours_plots.png', 'Privacy-accuracy tradeoff comparisons' %}
 Figure 5: Example privacy-accuracy tradeoffs across DP-SGD baselines and LoRA variants.
 {% endfigure %}
-
-*Based on the work [LoRA and Privacy: When Random Projections Help (and When They Don't)](https://arxiv.org/abs/2601.21719) by Yaxi Hu\*, Johanna Düngler\*, Bernhard Schölkopf, and Amartya Sanyal.*
