@@ -272,3 +272,5 @@ Moreover, this method can outperform DP-LoRA-FA across ranks.
 {% figure image_dir ~ '/dp_lora_vs_ours_plots.png', 'Privacy-accuracy tradeoff comparisons' %}
 Figure 5: Example privacy-accuracy tradeoffs across DP-SGD baselines and LoRA variants.
 {% endfigure %}
+
+*Based on the work [LoRA and Privacy: When Random Projections Help (and When They Don't)](https://arxiv.org/abs/2601.21719) by Yaxi Hu\*, Johanna Düngler\*, Bernhard Schölkopf, and Amartya Sanyal.*
