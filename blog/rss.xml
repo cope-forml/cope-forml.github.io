@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>FoRML Blog</title>
+    <link>https://cope-forml.github.io/blog/</link>
+    <description>Foundations of Responsible Machine Learning @ UCPH</description>
+    <language>en</language>
+    
+    <lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate>
+    
+    
+    <item>
+      <title>LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)</title>
+      <link>https://cope-forml.github.io/blog/dp-lora/</link>
+      <guid>https://cope-forml.github.io/blog/dp-lora/</guid>
+      <pubDate>Sat, 31 Jan 2026 00:00:00 +0000</pubDate>
+      
+    </item>
+    
+  </channel>
+</rss>
