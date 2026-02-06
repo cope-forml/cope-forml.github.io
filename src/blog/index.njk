@@ -4,7 +4,10 @@ title: Blog
 permalink: /blog/index.html
 ---
 
-<h1 class="text-3xl font-semibold mb-10">Blog</h1>
+<div class="flex items-baseline justify-between mb-10">
+  <h1 class="text-3xl font-semibold">Blog</h1>
+  <a href="/blog/rss.xml" class="text-sm text-accent hover:underline">Subscribe via RSS</a>
+</div>
 <div class="space-y-6">
   {% for post in collections.blog %}
     <article class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">

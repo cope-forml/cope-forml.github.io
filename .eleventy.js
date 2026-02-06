@@ -18,6 +18,11 @@ module.exports = function (eleventyConfig) {
     const dt = value instanceof Date ? DateTime.fromJSDate(value) : DateTime.fromISO(String(value));
     return dt.toFormat(fmt);
   });
+  // RSS date filter (RFC 822)
+  eleventyConfig.addFilter('dateToRfc822', value => {
+    const dt = value instanceof Date ? DateTime.fromJSDate(value) : DateTime.fromISO(String(value));
+    return dt.toUTC().toRFC2822();
+  });
 
   // Collections ------------------------------------------------
  
