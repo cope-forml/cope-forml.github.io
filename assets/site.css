@@ -741,6 +741,34 @@ video {
   margin-right: auto;
 }
 
+.news-prose {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  line-height: 1.625;
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity, 1));
+}
+
+.news-prose p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.news-prose a {
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.news-prose a:hover,
+  .news-prose a:focus {
+  --tw-text-opacity: 1;
+  color: rgb(153 27 27 / var(--tw-text-opacity, 1));
+  text-decoration-thickness: 4px;
+}
+
 .blog-lede {
   font-size: 1.25rem;
   line-height: 1.75rem;

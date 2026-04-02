@@ -41,6 +41,19 @@
     margin-left: auto;
     margin-right: auto;
   }
+  .news-prose {
+    @apply text-base leading-relaxed text-gray-800;
+  }
+  .news-prose p {
+    @apply my-2;
+  }
+  .news-prose a {
+    @apply font-semibold text-accent underline decoration-2 underline-offset-4;
+  }
+  .news-prose a:hover,
+  .news-prose a:focus {
+    @apply text-red-800 decoration-4;
+  }
   .blog-lede {
     @apply text-xl leading-relaxed text-gray-700;
   }
