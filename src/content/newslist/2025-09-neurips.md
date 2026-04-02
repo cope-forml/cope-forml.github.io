@@ -6,6 +6,6 @@ featured: true
 ---
 
 Johanna's [paper on Differentially Private
-PCA](/publications/?author=Johanna) was accepted to NeurIPS 2025 and
-Carolin's [paper on Online Learning in an Echo Chamber](/publications/?author=Carolin) was accepted
-to SODA 2025.
+PCA](/publications/#an-dngler-2025) was accepted to NeurIPS 2025 and
+Carolin's [paper on Online Learning in an Echo Chamber](/publications/#learning-dmitriev-2025) was accepted
+to SODA 2025 and selected for FORC (Foundations of Responsible Computing) highlights.
