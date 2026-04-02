@@ -18,6 +18,10 @@ permalink: /publications/index.html
   'arxiv':      ['Preprint', 'bg-gray-500',    'arXiv Preprint', 'preprint'],
   'preprint':   ['Preprint', 'bg-gray-500',    'Preprint', 'preprint']
 } %}
+{% set extraVenueMap = {
+  'tpdp': ['TPDP', 'bg-orange-500'],
+  'forc': ['FORC', 'bg-teal-600']
+} %}
 
 <h1 class="text-3xl font-semibold mb-10">Publications</h1>
 
@@ -46,6 +50,8 @@ permalink: /publications/index.html
       {# Venue tag logic #}
       {% set venueRaw = p.entryTags.journal or p.entryTags.booktitle or '' %}
       {% set venue = venueRaw | lower %}
+      {% set venueExtra = p.entryTags.venueextra or '' %}
+      {% set extraVenueTokens = venueExtra.split(',') if venueExtra else [] %}
       {% set venueKey = '' %}
       {% set venueTag = venueRaw %}
       {% set venueClass = 'bg-accent' %}
@@ -94,10 +100,23 @@ permalink: /publications/index.html
               {%- endif -%}
             {%- endfor -%}
           </p>
-<div class="flex items-center gap-4 mb-1">
+<div class="flex flex-wrap items-center gap-2 mb-1">
   <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ venueClass }}">
     {{ venueTag }}
   </span>
+  {% for extraVenue in extraVenueTokens %}
+    {% set extraVenueKey = extraVenue.trim() | lower %}
+    {% if extraVenueKey and extraVenueKey in extraVenueMap and extraVenueMap[extraVenueKey][0] != venueTag %}
+  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ extraVenueMap[extraVenueKey][1] }}">
+    {{ extraVenueMap[extraVenueKey][0] }}
+  </span>
+    {% endif %}
+  {% endfor %}
+  {% if 'tpdp' in venue and venueTag != 'TPDP' %}
+  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ extraVenueMap['tpdp'][1] }}">
+    {{ extraVenueMap['tpdp'][0] }}
+  </span>
+  {% endif %}
   <span class="text-xs text-gray-500">
     {{ venueFull }} ({{ p.entryTags.year }})
   </span>
