@@ -179,27 +179,17 @@ and $c$ is a constant.</p>
 Figure 2: Example dependence of $\varepsilon$ on rank $r$ for fixed $d$ and $\delta$.
 </figcaption></figure>
 <h3>Matrix case: without additive noise, projection-only is not DP</h3>
-<p>LoRA is ultimately used on matrices, not just vectors.
-In the matrix case, the projection-only mechanism runs into a fundamental obstacle:
-for any two different gradient matrices $V, V'$ (from neighboring datasets), the transformed
-outputs are almost surely separated, which prevents any DP guarantee.
-$$\Pr(MV = MV') = 0 \quad \text{for } V \neq V'.$$</p>
-<h3>Why is this intuition true?</h3>
-<p>Write $M = A^\top A$ where $A \in \mathbb{R}^{r\times d}$ and each row of $A$ is a Gaussian
-random vector $\sim N(0, \tfrac{1}{r} I_d)$.
-Then,
-$$MV = MV' \quad \Longleftrightarrow \quad A^\top A(V - V') = 0.$$</p>
-<p>A sufficient condition for this is $A(V - V') = 0$.
-But $V - V' \neq 0$ means its null space is a strictly lower-dimensional subspace.
-A continuous Gaussian vector (one row of $A$) lands exactly in that subspace with probability 0.
-So, almost surely, the projection distinguishes $V$ from $V'$.</p>
-<div class="callout callout-theorem"><p class="callout-title">Theorem 2 (Projection-only can break DP)</p><p>For the projection mechanism $\mathcal{A}(S)=M f(S)$ with a non-trivial matrix-valued query $f$, there exist neighboring datasets $S\sim_H S'$ and an event $E$ such that
-$$
-\Pr(\mathcal{A}(S)\in E)=1 \quad\text{and}\quad \Pr(\mathcal{A}(S')\in E)=0.
-$$
-So $\mathcal{A}$ is <strong>not</strong> $(\varepsilon,\delta)$-DP for any $\varepsilon$ and any $\delta&lt;1$.</p>
-</div>
-<p>In other words, projection by itself does not create the distributional overlap DP needs.</p>
+<p>LoRA is ultimately used on matrices, not just vectors. One might hope that the vector-case privacy guarantee extends to matrix-valued gradients, but this is false.</p>
+<p>The reason is that projection-only mechanisms do not add noise with full support. For a fixed matrix gradient $V$, the output
+$$Y = MV, \qquad M = ZZ^\top$$</p>
+<p>is not an arbitrary noisy perturbation of $V$. It always satisfies structural constraints determined by $V$. A neighboring gradient matrix $V'$ can impose different constraints, causing the two output distributions to be completely separated.</p>
+<p>Formally, for any non-trivial matrix-valued query $f$, there exist neighboring datasets $S,S'$ and a measurable event $E$ such that
+$$\Pr(\mathcal A(S)\in E)=1,
+\qquad
+\Pr(\mathcal A(S')\in E)=0.$$</p>
+<p>Thus the projection mechanism is not $(\varepsilon,\delta)$-DP for any $\varepsilon$ and any $\delta&lt;1$.</p>
+<p>The intuition is that matrix projection can leave dataset-dependent fingerprints. For example, if $V$ has a kernel direction $a$ with $Va=0$, but $V'a\neq 0$, then every output from $V$ satisfies $Ya=0$, while an output from $V'$ violates this almost surely. If $V$ has full column rank, a similar separation arises from symmetry constraints such as $V^\top Y$ being symmetric; for a non-aligned $V'$, this identity holds only with probability zero.</p>
+<p>Therefore, projection alone does not create the distributional overlap required by DP. This directly applies to the first step of standard LoRA with $B_0=0$, which can be written as a random projection of the gradient. LoRA's random initialization is therefore not &quot;privacy for free&quot;: DP still requires additional additive noise.</p>
 <p>Empirically, we show this failure mode in a toy setting: for a small CNN trained with
 LoRA-FA (freezing random $A$ and only learning $B$) on CIFAR-10, a membership inference
 attack can become nearly perfect (AUC &gt; 0.99).</p>
