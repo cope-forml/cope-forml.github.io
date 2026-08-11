@@ -925,7 +925,8 @@ video {
     max-width: 100%;
   }
 
-  .blog-figure img {
+  .blog-figure img,
+    .blog-figure video {
     width: 100%;
     max-width: 100%;
   }
@@ -1511,6 +1512,10 @@ video {
 
 .underline {
   text-decoration-line: underline;
+}
+
+.overline {
+  text-decoration-line: overline;
 }
 
 .opacity-0 {

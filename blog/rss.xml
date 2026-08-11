@@ -7,8 +7,18 @@
     <description>Foundations of Responsible Machine Learning @ UCPH</description>
     <language>en</language>
     
-    <lastBuildDate>Sat, 31 Jan 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 10 Mar 2026 00:00:00 +0000</lastBuildDate>
     
+    
+    <item>
+      <title>How to Learn in an Echo Chamber</title>
+      <link>https://cope-forml.github.io/blog/2026-03-echo/</link>
+      <guid>https://cope-forml.github.io/blog/2026-03-echo/</guid>
+      <pubDate>Tue, 10 Mar 2026 00:00:00 +0000</pubDate>
+      
+      <description>A learning theoretic framework to understand model collapse in learning and generation - Part I</description>
+      
+    </item>
     
     <item>
       <title>LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)</title>
