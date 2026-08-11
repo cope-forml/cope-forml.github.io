@@ -78,7 +78,8 @@
   .blog-figure {
     @apply my-8 rounded-2xl border border-gray-200 bg-white p-4 shadow-sm;
   }
-  .blog-figure img {
+  .blog-figure img,
+  .blog-figure video {
     @apply rounded-xl shadow-sm;
     max-width: 600px;
     width: 72%;
@@ -140,7 +141,8 @@
       width: 100%;
       max-width: 100%;
     }
-    .blog-figure img {
+    .blog-figure img,
+    .blog-figure video {
       width: 100%;
       max-width: 100%;
     }

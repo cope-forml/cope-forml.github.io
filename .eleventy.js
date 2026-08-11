@@ -3,10 +3,12 @@ const { DateTime } = require('luxon');
 const bibtexParse = require('bibtex-parse-js');
 const path = require('path');
 const markdownIt = require('markdown-it');
+const markdownItFootnote = require('markdown-it-footnote');
 
 
 module.exports = function (eleventyConfig) {
-  const md = markdownIt({ html: true, breaks: false, linkify: true });
+  const md = markdownIt({ html: true, breaks: false, linkify: true })
+    .use(markdownItFootnote);
   eleventyConfig.setLibrary('md', md);
 
   // Pass‑through static assets
@@ -77,7 +79,10 @@ eleventyConfig.addCollection('blog', api => {
   eleventyConfig.addPairedShortcode('figure', (content, src, alt = '') => {
     const caption = content ? md.renderInline(content) : '';
     const captionHtml = caption ? `<figcaption>${caption}</figcaption>` : '';
-    return `<figure class="blog-figure"><img src="${src}" alt="${alt}"/>${captionHtml}</figure>`;
+    const mediaHtml = /\.mp4(?:$|\?)/i.test(src)
+      ? `<video autoplay loop muted playsinline controls preload="metadata" aria-label="${alt}"><source src="${src}" type="video/mp4">Your browser does not support HTML video.</video>`
+      : `<img src="${src}" alt="${alt}"/>`;
+    return `<figure class="blog-figure">${mediaHtml}${captionHtml}</figure>`;
   });
 
 const slugify = require("slugify");
