@@ -57,3 +57,21 @@
   school: MPI-IS
   img: /assets/people/omri.jpg
   web: https://beomri.github.io/
+- name: Prathamesh Dharangutte
+  role: Postdoc
+  school: UCPH
+  first: Prathamesh
+  img: /assets/people/prathamesh.jpg
+  web: https://prathameshd.com/
+- name: Christian Janos Lebeda
+  role: Postdoc
+  school: UCPH
+  first: Christian
+  img: /assets/people/christian.jpg
+  web: https://christianlebeda.github.io/
+- name: Erell Boutin-Jeanniard du Dot
+  role: PhD Student
+  school: UBC
+  first: Erell
+  img: /assets/people/erell.jpg
+  web: https://www.linkedin.com/in/erell-boutin-jeanniard-du-dot/
