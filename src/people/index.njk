@@ -27,7 +27,7 @@ permalink: /people/index.html
       </div>
       <div class="text-sm text-gray-600 mb-1 {{ 'md:whitespace-nowrap' if featured else '' }}">{{ p.role }}</div>
       <div class="text-sm text-gray-600 mb-4">{{ p.school }}</div>
-      <a href="/publications/?author={{ p.first | urlencode }}"
+      <a href="/publications/?author={{ p.name | urlencode }}"
          class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
         View Publications
       </a>

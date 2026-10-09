@@ -43,6 +43,7 @@ permalink: /publications/index.html
 
   <!-- Paper list -->
   <section class="lg:w-3/4 space-y-10" id="paper-container">
+    <p id="no-results" class="hidden text-gray-600" role="status">No matching publications in the current group bibliography.</p>
     {% set yr = 0 %}
     {% for p in papers %}
       {% if p.entryTags.year != yr %}
@@ -89,7 +90,7 @@ permalink: /publications/index.html
         {% endif %}
       {% endif %}
 
-      <article id="{{ p.slug }}" class="paper-card" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
+      <article id="{{ p.slug }}" class="paper-card" data-authors="{{ p.entryTags.author | escape }}" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
         <span class="accent-bar"></span>
         <div class="p-4 pl-5">
           <h3 class="title">{{ p.entryTags.title }}</h3>
@@ -158,19 +159,33 @@ permalink: /publications/index.html
 </div>
 
 <script>
-  // Pre-fill search with ?author=
+  // Member links filter by a complete author name, independently of keyword search.
+  const memberNames = [{% for person in people %}{{ person.name | dump | safe }}{% if not loop.last %}, {% endif %}{% endfor %}];
+  function normalizeAuthor(name) {
+    const parts = name.split(',');
+    const fullName = parts.length === 2 ? `${parts[1]} ${parts[0]}` : name;
+    return fullName.normalize('NFD')
+      .replace(/\p{M}/gu, '')
+      .replace(/[{}]/g, '')
+      .replace(/[\u2010-\u2015\u2212]/g, '-')
+      .trim().replace(/\s+/g, ' ').toLowerCase();
+  }
   function getQueryParam(name) {
     return new URLSearchParams(window.location.search).get(name);
   }
   document.addEventListener("DOMContentLoaded", function() {
-    const author = getQueryParam("author");
+    let author = getQueryParam("author");
     if (author) {
+      // Keep old first-name member links working without matching unrelated authors.
+      const legacyMatches = memberNames.filter(name =>
+        normalizeAuthor(name).split(' ')[0] === normalizeAuthor(author));
+      if (legacyMatches.length === 1) author = legacyMatches[0];
+      authorFilter = normalizeAuthor(author);
       const search = document.getElementById("search-input");
       if (search) {
         search.value = author;
-        var evt = new Event('input', { bubbles: true });
-        search.dispatchEvent(evt);
       }
+      apply();
     }
     // BibTeX copy handler
     document.querySelectorAll('.bibtex-btn').forEach(btn => {
@@ -212,19 +227,33 @@ permalink: /publications/index.html
   const chips=document.querySelectorAll('.chip');
   const cards=document.querySelectorAll('.paper-card');
   const searchInput=document.getElementById('search-input');
-  let topic='all', q='';
+  let topic='all', q='', authorFilter='';
   function apply(){
     const query = q.toLowerCase();
+    let visibleCount = 0;
     cards.forEach(c=>{
       const topics = c.dataset.topics.toLowerCase().split(',').map(s=>s.trim());
-      const show = (topic==='all' || topics.includes(topic)) &&
+      const matchesAuthor = !authorFilter || c.dataset.authors.split(/\s+and\s+/)
+        .some(author => normalizeAuthor(author) === authorFilter);
+      const show = (topic==='all' || topics.includes(topic)) && matchesAuthor &&
                    c.textContent.toLowerCase().includes(query);
+      if (show) visibleCount++;
       c.classList.toggle('hidden', !show);
       c.classList.toggle('opacity-0', !show);
       c.classList.toggle('scale-95', !show);
     });
+    document.getElementById('no-results').classList.toggle('hidden', visibleCount > 0);
+    document.querySelectorAll('.sticky-year').forEach(heading => {
+      let next = heading.nextElementSibling;
+      let hasVisiblePaper = false;
+      while (next && !next.classList.contains('sticky-year')) {
+        if (next.classList.contains('paper-card') && !next.classList.contains('hidden')) hasVisiblePaper = true;
+        next = next.nextElementSibling;
+      }
+      heading.classList.toggle('hidden', !hasVisiblePaper);
+    });
   }
   chips.forEach(btn=>btn.onclick=()=>{chips.forEach(b=>b.classList.remove('chip-active'));btn.classList.add('chip-active');topic=btn.dataset.topic;apply();});
-  searchInput.oninput=()=>{q=searchInput.value;apply();};
-  document.getElementById('paper-container').addEventListener('click',e=>{if(e.target.matches('.tag')){searchInput.value=e.target.dataset.tag;q=e.target.dataset.tag;apply();}});
+  searchInput.oninput=()=>{authorFilter='';q=searchInput.value;apply();};
+  document.getElementById('paper-container').addEventListener('click',e=>{if(e.target.matches('.tag')){authorFilter='';searchInput.value=e.target.dataset.tag;q=e.target.dataset.tag;apply();}});
 </script>
