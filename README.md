@@ -57,10 +57,11 @@ This starts Eleventy’s dev server and watches Tailwind CSS. Open the local URL
    ---
    title: News Title
    date: YYYY-MM-DD
-   featured: true  # Optional, Not working yet
+   featured: true  # Show on the homepage; all items appear on the News page
    ---
    News content goes here.
    ```
+   Set `featured: false` to keep an announcement on the News page only.
 3. Save and commit:
 
    ```sh
