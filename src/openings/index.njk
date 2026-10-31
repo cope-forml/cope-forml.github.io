@@ -4,8 +4,9 @@ title: Open Positions
 permalink: /openings/index.html
 ---
 
-<h1 class="text-3xl font-semibold mb-6">Important reading for PhD students</h1>
-<section class="prose max-w-none">
+<div class="page-heading"><h1>Open positions</h1></div>
+<h2 class="section-heading mb-4">Important reading for PhD students</h2>
+<section class="reading-prose">
   <p>
     Applicants ought to be highly self-motivated, with strong skills and
     interests in mathematical problem solving and/or experimental work, ideally both.
@@ -24,20 +25,20 @@ permalink: /openings/index.html
   </p>
 </section>
 
-<h2 class="text-2xl font-semibold mt-12 mb-6">Open Positions</h2>
+<h2 class="section-heading mt-8 mb-4">Open Positions</h2>
 <div class="space-y-6">
   {% for opening in collections.openings %}
-    <article class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <header class="flex justify-between items-center mb-2">
-        <span class="font-semibold">{{ opening.data.title }}</span>
+    <article class="opening-entry">
+      <header class="flex flex-wrap justify-between items-center gap-3 mb-2">
+        <h3 class="entry-title">{{ opening.data.title }}</h3>
         <span class="text-xs text-gray-500">{{ opening.date | date('yyyy-LL-dd') }}</span>
       </header>
-      <div class="prose max-w-none">
+      <div class="reading-prose">
         {{ opening.templateContent | safe }}
       </div>
     </article>
   {% else %}
-    <div class="bg-white rounded-xl shadow p-8 border border-dashed border-accent text-center text-gray-500">
+    <div class="editorial-card text-gray-500">
       There are no current openings in the group right now.
     </div>
   {% endfor %}

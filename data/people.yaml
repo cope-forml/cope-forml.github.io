@@ -9,24 +9,32 @@
   school: UCPH
   first: Vikrant
   img: /assets/people/vikrant.jpg
+  portrait_scale: 1.06
+  portrait_focus: "50% 45%"
   web: https://www.vikrantsinghal.com/o
 - name: Johanna Düngler
   role: PhD Student
   first: Johanna
   school: UCPH, DDSA PhD Fellow
   img: /assets/people/johanna.jpg
+  portrait_scale: 1.08
+  portrait_focus: "50% 0%"
   web: https://johannaduengler.github.io/
 - name: Carolin Heinzler
   role: PhD Student
   first: Carolin
   school: UCPH
   img: /assets/people/carolin.jpg
+  portrait_scale: 1.04
+  portrait_focus: "50% 45%"
   web: https://caroheinz.github.io/
 - name: Giorgio Racca
   role: PhD Student
   school: UCPH
   first: Giorgio
   img: /assets/people/giorgio.jpg
+  portrait_scale: 1.2
+  portrait_focus: "50% 52%"
   web: https://giorgio-racca.github.io/
 - name: Luka Radic
   role: PhD Student
@@ -38,23 +46,32 @@
   first: Yaxi
   school: MPI-IS
   img: /assets/people/yaxi.jpg
+  portrait_scale: 1.04
+  portrait_focus: "50% 50%"
   web: https://yaxihu.github.io/
 - name: Max Cairney-Leeming
   role: PhD Student
   first: Max
   school: ISTA (ELLIS PhD)
   img: /assets/people/max.jpg
+  portrait_scale: 1.25
+  portrait_focus: "60% 52%"
   web: https://maxcl.co.uk/
 - name: Anmol Goel
   role: PhD Student
   first: Anmol
   school: TU Darmstadt (ELLIS PhD)
   img: /assets/people/anmol.jpg
+  portrait_scale: 1.1
+  portrait_focus: "50% 0%"
   web: https://www.goel.ai/
 - name: Omri Ben-Dov
-  role: PhD Student
+  role: Postdoc
+  alumni: true
   first: Omri
-  school: MPI-IS
+  previous_school: MPI-IS
+  # Current position confirmed at https://beomri.github.io/ (2026-11-01).
+  school: Saarland University
   img: /assets/people/omri.jpg
   web: https://beomri.github.io/
 - name: Prathamesh Dharangutte
@@ -62,16 +79,22 @@
   school: UCPH
   first: Prathamesh
   img: /assets/people/prathamesh.jpg
+  portrait_scale: 1.35
+  portrait_focus: "50% 62%"
   web: https://prathameshd.com/
 - name: Christian Janos Lebeda
   role: Postdoc
   school: UCPH
   first: Christian
   img: /assets/people/christian.jpg
+  portrait_scale: 1.02
+  portrait_focus: "50% 45%"
   web: https://christianlebeda.github.io/
 - name: Erell Boutin-Jeanniard du Dot
   role: PhD Student
-  school: UBC
+  school: UBC (ELLIS PhD)
   first: Erell
   img: /assets/people/erell.jpg
+  portrait_scale: 1.28
+  portrait_focus: "50% 60%"
   web: https://www.linkedin.com/in/erell-boutin-jeanniard-du-dot/

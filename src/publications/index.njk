@@ -26,12 +26,12 @@ permalink: /publications/index.html
   'oral': ['Oral', 'bg-amber-500']
 } %}
 
-<h1 class="text-3xl font-semibold mb-10">Publications</h1>
+<div class="page-heading"><h1>Publications</h1></div>
 
-<div class="lg:flex lg:gap-12">
+<div class="publications-layout">
   <!-- Filter panel -->
-  <aside class="lg:w-1/4 lg:sticky lg:top-24 mb-10 lg:mb-0">
-    <input id="search-input" type="text" placeholder="Search title or author" class="w-full border focus:ring-2 ring-accent rounded-lg px-3 py-2 text-sm mb-6" />
+  <aside class="publication-filters">
+    <input id="search-input" aria-label="Search publications by title or author" type="search" placeholder="Search title or author" class="w-full border focus:ring-2 ring-accent rounded-lg px-3 py-2 text-sm mb-6" />
     <h2 class="text-sm font-semibold mb-3 text-gray-600">Topics</h2>
     <div class="flex flex-wrap gap-2">
       <button class="chip chip-active" data-topic="all">All</button>
@@ -42,7 +42,7 @@ permalink: /publications/index.html
   </aside>
 
   <!-- Paper list -->
-  <section class="lg:w-3/4 space-y-10" id="paper-container">
+  <section class="publication-list" id="paper-container">
     <p id="no-results" class="hidden text-gray-600" role="status">No matching publications in the current group bibliography.</p>
     {% set yr = 0 %}
     {% for p in papers %}
@@ -91,8 +91,7 @@ permalink: /publications/index.html
       {% endif %}
 
       <article id="{{ p.slug }}" class="paper-card" data-authors="{{ p.entryTags.author | escape }}" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">{{ p.entryTags.title }}</h3>
           <p class="authors">
             {%- for author in p.entryTags.author.split(' and ') -%}
@@ -105,19 +104,19 @@ permalink: /publications/index.html
             {%- endfor -%}
           </p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ venueClass }}">
+  <span class="venue-label">
     {{ venueTag }}
   </span>
   {% for extraVenue in extraVenueTokens %}
     {% set extraVenueKey = extraVenue.trim() | lower %}
     {% if extraVenueKey and extraVenueKey in extraVenueMap and extraVenueMap[extraVenueKey][0] != venueTag %}
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ extraVenueMap[extraVenueKey][1] }}">
+  <span class="venue-label">
     {{ extraVenueMap[extraVenueKey][0] }}
   </span>
     {% endif %}
   {% endfor %}
   {% if 'tpdp' in venue and venueTag != 'TPDP' %}
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white {{ extraVenueMap['tpdp'][1] }}">
+  <span class="venue-label">
     {{ extraVenueMap['tpdp'][0] }}
   </span>
   {% endif %}

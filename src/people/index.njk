@@ -4,81 +4,77 @@ title: People
 permalink: /people/index.html
 ---
 
-{% macro personCard(p, featured=false) %}
-  <div class="person-card {{ 'md:flex-row md:text-left' if featured else 'flex-col items-center text-center' }} p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+{% macro personCard(p, horizontal=false) %}
+  <article class="person-card{{ ' person-card-horizontal' if horizontal else '' }}">
     {% if p.img %}
-      <img src="{{ p.img }}"
-           class="{{ 'w-36 h-36 md:mr-6 mb-4 md:mb-0' if featured else 'w-28 h-28 mb-4' }} shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="{{ p.name }}">
-    {% else %}
-      <img src="/assets/images/placeholder-author.jpg"
-           class="{{ 'w-36 h-36 md:mr-6 mb-4 md:mb-0' if featured else 'w-28 h-28 mb-4' }} shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="placeholder">
-    {% endif %}
-
-    <div class="flex min-w-0 flex-1 flex-col {{ 'items-start' if featured else 'items-center' }}">
-      <div class="text-xl font-medium mb-1">
-        {% if p.web %}
-          <a href="{{ p.web }}" class="text-accent hover:underline" target="_blank" rel="noopener">{{ p.name }}</a>
-        {% else %}
-          {{ p.name }}
-        {% endif %}
-      </div>
-      <div class="text-sm text-gray-600 mb-1 {{ 'md:whitespace-nowrap' if featured else '' }}">{{ p.role }}</div>
-      <div class="text-sm text-gray-600 mb-4">{{ p.school }}</div>
-      <a href="/publications/?author={{ p.name | urlencode }}"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: {{ p.portrait_scale or 1 }}; --portrait-focus: {{ p.portrait_focus or '50% 50%' }};">
+      <img src="{{ p.img }}" alt="{{ p.name }}" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    {% endif %}
+    <div class="person-details">
+      <h3>{% if p.web %}<a href="{{ p.web }}" target="_blank" rel="noopener">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}</h3>
+      <p class="person-affiliation">{% if p.alumni and p.previous_school %}{{ p.previous_school }} → {% endif %}{{ p.role }} · {{ p.school }}</p>
+      <div class="person-links">
+        <a href="/publications/?author={{ p.name | urlencode }}">Publications</a>
+      </div>
+    </div>
+  </article>
 {% endmacro %}
 
-<div class="max-w-6xl mx-auto px-4">
-  <div class="mb-12 max-w-2xl">
-    <h1 class="text-3xl font-semibold mb-3">Group Members</h1>
+<div class="people-page">
+  <div class="page-heading">
+    <h1>Group members</h1>
   </div>
 
-  <section class="mb-14" aria-labelledby="faculty-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="faculty-heading" class="text-2xl font-semibold">Faculty</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="faculty-heading">
+    <div class="people-section-heading">
+      <h2 id="faculty-heading" class="section-heading">Faculty</h2>
     </div>
-    <div class="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
+    <div class="people-grid people-grid-horizontal">
       {% for p in people %}
-        {% if p.role == 'Tenure Track Assistant Professor (PI)' %}
+        {% if not p.alumni and p.role == 'Tenure Track Assistant Professor (PI)' %}
           {{ personCard(p, true) }}
         {% endif %}
       {% endfor %}
     </div>
   </section>
 
-  <section class="mb-14" aria-labelledby="senior-researchers-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="senior-researchers-heading" class="text-2xl font-semibold">Senior Researchers</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="senior-researchers-heading">
+    <div class="people-section-heading">
+      <h2 id="senior-researchers-heading" class="section-heading">Senior Researchers</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="people-grid">
       {% for p in people %}
-        {% if p.role == 'Postdoc' or p.role == 'Fixed Term Assistant Professor' %}
+        {% if not p.alumni and (p.role == 'Postdoc' or p.role == 'Fixed Term Assistant Professor') %}
           {{ personCard(p) }}
         {% endif %}
       {% endfor %}
     </div>
   </section>
 
-  <section aria-labelledby="phd-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="phd-heading" class="text-2xl font-semibold">PhD Students</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="phd-heading">
+    <div class="people-section-heading">
+      <h2 id="phd-heading" class="section-heading">PhD Students</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="people-grid">
       {% for p in people %}
-        {% if p.role == 'PhD Student' %}
+        {% if not p.alumni and p.role == 'PhD Student' %}
           {{ personCard(p) }}
         {% endif %}
       {% endfor %}
     </div>
   </section>
+  {% set alumni = people | selectattr('alumni') | list %}
+  {% if alumni | length %}
+  <section class="people-section" aria-labelledby="alumni-heading">
+    <div class="people-section-heading">
+      <h2 id="alumni-heading" class="section-heading">Alumni</h2>
+    </div>
+    <div class="people-grid people-grid-horizontal">
+      {% for p in alumni %}
+        {{ personCard(p, true) }}
+      {% endfor %}
+    </div>
+  </section>
+  {% endif %}
 </div>

@@ -4,19 +4,19 @@ title: News
 permalink: /news/index.html
 ---
 
-<h1 class="text-3xl font-semibold mb-10">News</h1>
-<div class="space-y-6">
+<div class="page-heading">
+  <h1>News</h1>
+</div>
+<div class="news-list archive-news">
   {% for n in collections.news %}
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">{{ n.data.title }}</span>
-        <span class="text-xs text-gray-500">{{ n.date | date('yyyy-LL-dd') }}</span>
+    <article class="news-item">
+      <time datetime="{{ n.date | date('yyyy-LL-dd') }}">{{ n.date | date('dd LLL yyyy') }}</time>
+      <div>
+        <h2>{{ n.data.title }}</h2>
+        <div class="news-prose">{{ n.templateContent | safe }}</div>
       </div>
-      <div class="news-prose prose max-w-none">
-        {{ n.templateContent | safe }}
-      </div>
-    </div>
+    </article>
   {% else %}
-    <div class="text-gray-500">No recent news to display.</div>
+    <p class="text-gray-500">No recent news to display.</p>
   {% endfor %}
 </div>

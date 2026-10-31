@@ -4,27 +4,22 @@ title: Blog
 permalink: /blog/index.html
 ---
 
-<div class="flex items-baseline justify-between mb-10">
-  <h1 class="text-3xl font-semibold">Blog</h1>
+<div class="page-heading flex flex-wrap items-baseline justify-between gap-4">
+  <div><h1>Blog</h1></div>
   <a href="/blog/rss.xml" class="text-sm text-accent hover:underline">Subscribe via RSS</a>
 </div>
-<div class="space-y-6">
+<div class="news-list blog-list">
   {% for post in collections.blog %}
-    <article class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <header class="flex flex-col gap-2">
-        <a href="{{ post.url }}" class="text-xl font-semibold hover:text-accent">{{ post.data.title }}</a>
-        <span class="text-xs text-gray-500">
-          {{ post.date | date('yyyy-LL-dd') }}{% if post.data.author %} · {{ post.data.author }}{% endif %}
-        </span>
-      </header>
-      {% if post.data.summary %}
-        <p class="text-gray-700 mt-3">{{ post.data.summary }}</p>
-      {% endif %}
-      <div class="mt-4">
-        <a href="{{ post.url }}" class="text-accent hover:underline">Read more &rarr;</a>
+    <article class="news-item">
+      <time datetime="{{ post.date | date('yyyy-LL-dd') }}">{{ post.date | date('dd LLL yyyy') }}</time>
+      <div>
+        <h2><a href="{{ post.url }}" class="hover:text-accent">{{ post.data.title }}</a></h2>
+        {% if post.data.author %}<p class="post-author">{{ post.data.author }}</p>{% endif %}
+        {% if post.data.summary %}<p class="news-prose">{{ post.data.summary }}</p>{% endif %}
+        <a href="{{ post.url }}" class="text-link post-link">Read more</a>
       </div>
     </article>
   {% else %}
-    <div class="text-gray-500">No blog posts yet.</div>
+    <p class="text-gray-500">No blog posts yet.</p>
   {% endfor %}
 </div>

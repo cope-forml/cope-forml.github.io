@@ -1,0 +1,7 @@
+[
+  { "src": "/assets/images/placeholder-hero.jpg", "alt": "Blue and green mathematical notes on a whiteboard", "position": "50% 45%", "scale": 1.2 },
+  { "src": "/assets/images/boards/whiteboard-2024-10.jpg", "alt": "Probability and linear algebra notes on a whiteboard", "position": "50% 55%", "scale": 1.08 },
+  { "src": "/assets/images/boards/whiteboard-2026-02.jpg", "alt": "Information theory and unlearning notes on a whiteboard", "position": "50% 45%", "scale": 1.13 },
+  { "src": "/assets/images/boards/blackboard-2026-04.jpg", "alt": "Learning theory derivations written in chalk on a blackboard", "position": "50% 29%", "scale": 1.5 },
+  { "src": "/assets/images/boards/whiteboard-2026-06.jpg", "alt": "Learning theory notes in red and green on a whiteboard", "position": "50% 52%", "scale": 1.45 }
+]
