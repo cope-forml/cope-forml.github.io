@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Foundations of Responsible Machine Learning @ UCPH" />
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-69X81VG1GW"></script>
 <script>
@@ -14,12 +16,11 @@
 </script>
   <title>Publications | Foundations of Responsible Machine Learning @ UCPH</title>
   <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="FoRML Blog RSS" href="/blog/rss.xml" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family:'Inter',sans-serif; background: #fafafa; }
-    h1, h2, h3 { font-family:'Source Serif Pro',serif; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script>
     window.MathJax = {
       tex: {
@@ -31,33 +32,38 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-<header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
-  <a href="/" class="text-5xl font-bold tracking-tight text-accent font-serif whitespace-nowrap">
-    FoRML
-  </a>
-  <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
-    <a href="/people/" class="nav-link hover:text-accent">People</a>
-    <a href="/publications/" class="nav-link hover:text-accent">Publications</a>
-    <a href="/blog/" class="nav-link hover:text-accent">Blog</a>
-    <a href="/news/" class="nav-link hover:text-accent">News</a>
-    <a href="/openings/" class="nav-link hover:text-accent">Openings</a>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header site-container">
+  <a href="/" class="brand" aria-label="FoRML home">FoRML<span class="brand-affiliation">University of Copenhagen</span></a>
+  <nav class="site-nav" aria-label="Main navigation">
+    
+      <a href="/people/" class="nav-link">People</a>
+    
+      <a href="/publications/" class="nav-link" aria-current="page">Publications</a>
+    
+      <a href="/blog/" class="nav-link">Blog</a>
+    
+      <a href="/news/" class="nav-link">News</a>
+    
+      <a href="/openings/" class="nav-link">Openings</a>
+    
   </nav>
 </header>
 
- <main class="max-w-5xl mx-auto px-4">
+<main id="main-content" class="site-container inner-main">
   
 
 
 
 
 
-<h1 class="text-3xl font-semibold mb-10">Publications</h1>
+<div class="page-heading"><h1>Publications</h1></div>
 
-<div class="lg:flex lg:gap-12">
+<div class="publications-layout">
   <!-- Filter panel -->
-  <aside class="lg:w-1/4 lg:sticky lg:top-24 mb-10 lg:mb-0">
-    <input id="search-input" type="text" placeholder="Search title or author" class="w-full border focus:ring-2 ring-accent rounded-lg px-3 py-2 text-sm mb-6" />
+  <aside class="publication-filters">
+    <input id="search-input" aria-label="Search publications by title or author" type="search" placeholder="Search title or author" class="w-full border focus:ring-2 ring-accent rounded-lg px-3 py-2 text-sm mb-6" />
     <h2 class="text-sm font-semibold mb-3 text-gray-600">Topics</h2>
     <div class="flex flex-wrap gap-2">
       <button class="chip chip-active" data-topic="all">All</button>
@@ -80,7 +86,7 @@
   </aside>
 
   <!-- Paper list -->
-  <section class="lg:w-3/4 space-y-10" id="paper-container">
+  <section class="publication-list" id="paper-container">
     <p id="no-results" class="hidden text-gray-600" role="status">No matching publications in the current group bibliography.</p>
     
     
@@ -151,12 +157,11 @@
       
 
       <article id="why-radi-2026" class="paper-card" data-authors="Radić, Luka and Singhal, Vikrant and Sanyal, Amartya" data-topics="unlearning,theory" data-tags="machine unlearning,forget-only unlearning,memorization,lower bounds">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Why Forget-Only Unlearning Needs Memorization</h3>
           <p class="authors">Luka Radić, Vikrant Singhal, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
@@ -257,12 +262,11 @@
       
 
       <article id="private-sanyal-2026" class="paper-card" data-authors="Sanyal, Amartya" data-topics="privacy,theory" data-tags="differential privacy,online learning,online prediction,Littlestone dimension">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Private online learning and prediction for Littlestone classes</h3>
           <p class="authors">Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
@@ -349,18 +353,17 @@
       
 
       <article id="optimal-dngler-2026" class="paper-card" data-authors="Düngler, Johanna and Sanyal, Amartya" data-topics="privacy,theory" data-tags="differential privacy,PCA,adaptive noise">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Optimal Rates for Adaptive Private k-PCA</h3>
           <p class="authors">Johanna Düngler, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-green-500">
+  <span class="venue-label">
     NeurIPS
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">
+  <span class="venue-label">
     Spotlight
   </span>
     
@@ -446,12 +449,11 @@
       
 
       <article id="language-racca-2026" class="paper-card" data-authors="Racca, Giorgio and Valko, Michal and Sanyal, Amartya" data-topics="llms,theory" data-tags="model collapse,language generation,learning theory">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Language Generation with Replay: A Learning-Theoretic View of Model Collapse</h3>
           <p class="authors">Giorgio Racca, Michal Valko, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-blue-500">
+  <span class="venue-label">
     ICML
   </span>
   
@@ -538,18 +540,17 @@
       
 
       <article id="privately-brown-2026" class="paper-card" data-authors="Brown, Gavin and Linder, Ephraim and Majid, Mahbod and Singhal, Vikrant" data-topics="privacy,theory" data-tags="differential privacy,monotone statistics,sample complexity">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Privately Estimating Monotone Statistics in Polynomial Time</h3>
           <p class="authors">Gavin Brown, Ephraim Linder, Mahbod Majid, Vikrant Singhal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-green-500">
+  <span class="venue-label">
     NeurIPS
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -653,18 +654,17 @@
       
 
       <article id="less-heinzler-2026" class="paper-card" data-authors="Heinzler, Carolin and Malihi, Kasra and Sanyal, Amartya" data-topics="unlearning,privacy" data-tags="certified unlearning,differential privacy,sensitivity">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Less Noise, Same Certificate: Retain Sensitivity for Unlearning</h3>
           <p class="authors">Carolin Heinzler, Kasra Malihi, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -766,18 +766,17 @@
       
 
       <article id="adaptive-cairneyleeming-2026" class="paper-card" data-authors="Cairney-Leeming, Max and Sanyal, Amartya and Lampert, Christoph H." data-topics="privacy" data-tags="differential privacy,adaptive sampling,worst-case group optimization">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Adaptive Sampling for Private Worst-Case Group Optimization</h3>
           <p class="authors">Max Cairney-Leeming, Amartya Sanyal, Christoph H. Lampert</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -879,18 +878,17 @@
       
 
       <article id="lora-hu-2026" class="paper-card" data-authors="Hu, Yaxi and Düngler, Johanna and Schölkopf, Bernhard and Sanyal, Amartya" data-topics="privacy,theory,llms" data-tags="online learning,unlearning,privacy,llms">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">LoRA and Privacy: When Random Projections Help (and When They Don&#39;t)</h3>
           <p class="authors">Yaxi Hu, Johanna Düngler, Bernhard Schölkopf, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -978,18 +976,17 @@
       
 
       <article id="fairness-bendov-2026" class="paper-card" data-authors="Ben‑Dov, Omri and Samadi, Samira and Sanyal, Amartya and Ţifrea, Alexandru" data-topics="ml and society" data-tags="collective action,ml and society">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Fairness for the People, by the People: Minority Collective Action</h3>
           <p class="authors">Omri Ben‑Dov, Samira Samadi, Amartya Sanyal, Alexandru Ţifrea</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-pink-500">
+  <span class="venue-label">
     EAAMO
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-amber-500">
+  <span class="venue-label">
     Oral
   </span>
     
@@ -1077,18 +1074,17 @@
       
 
       <article id="online-hu-2026" class="paper-card" data-authors="Hu, Yaxi and Schölkopf, Bernhard and Sanyal, Amartya" data-topics="unlearning,theory" data-tags="online learning,unlearning,privacy">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Online Learning and Unlearning</h3>
           <p class="authors">Yaxi Hu, Bernhard Schölkopf, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-purple-500">
+  <span class="venue-label">
     TMLR
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -1179,12 +1175,11 @@
       
 
       <article id="deltainfluence-li-2025" class="paper-card" data-authors="Li, Wenjie and Li, Jiawei and de Witt, Christian Schroeder and Prabhu, Ameya and Sanyal, Amartya" data-topics="unlearning,data poisoning" data-tags="unlearning,robustness,ai safety,data poisoning">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Delta-influence: Unlearning poisons via influence functions</h3>
           <p class="authors">Wenjie Li, Jiawei Li, Christian Schroeder de Witt, Ameya Prabhu, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-purple-500">
+  <span class="venue-label">
     TMLR
   </span>
   
@@ -1271,18 +1266,17 @@
       
 
       <article id="learning-dmitriev-2025" class="paper-card" data-authors="Dmitriev, Daniil and Franck, Harald Eskelund and Heinzler, Carolin and Sanyal, Amartya" data-topics="theory" data-tags="robustness,online learning">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Learning in an Echo Chamber: Online Learning with Replay Adversary</h3>
           <p class="authors">Daniil Dmitriev, Harald Eskelund Franck, Carolin Heinzler, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-rose-500">
+  <span class="venue-label">
     SODA
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-teal-600">
+  <span class="venue-label">
     FORC
   </span>
     
@@ -1370,18 +1364,17 @@
       
 
       <article id="an-dngler-2025" class="paper-card" data-authors="Düngler, Johanna and Sanyal, Amartya" data-topics="privacy,theory" data-tags="privacy">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">An Iterative Algorithm for Differentially Private k-PCA with Adaptive Noise</h3>
           <p class="authors">Johanna Düngler, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-green-500">
+  <span class="venue-label">
     NeurIPS
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -1471,12 +1464,11 @@
       
 
       <article id="provable-wei-2025" class="paper-card" data-authors="Wei, Stanley and Malladi, Sadhika and Arora, Sanjeev and Sanyal, Amartya" data-topics="unlearning,theory" data-tags="unlearning">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Provable Unlearning in Topic Modeling and Downstream Tasks</h3>
           <p class="authors">Stanley Wei, Sadhika Malladi, Sanjeev Arora, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-emerald-500">
+  <span class="venue-label">
     ICLR
   </span>
   
@@ -1563,18 +1555,17 @@
       
 
       <article id="differentially-goel-2025" class="paper-card" data-authors="Goel, Anmol and Hu, Yaxi and Gurevych, Iryna and Sanyal, Amartya" data-topics="privacy,llms" data-tags="ai safety,differential privacy,llms">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Differentially Private Steering for Large Language Model Alignment</h3>
           <p class="authors">Anmol Goel, Yaxi Hu, Iryna Gurevych, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-emerald-500">
+  <span class="venue-label">
     ICLR
   </span>
   
     
     
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
     
@@ -1662,12 +1653,11 @@
       
 
       <article id="protecting-neel-2025" class="paper-card" data-authors="Neel, Alex and Siddiqui, Shoaib Ahmed and Sanyal, Amartya and Krueger, David" data-topics="robustness,data poisoning" data-tags="data poisoning,ai safety,robustness">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Protecting Against Simultaneous Data Poisoning Attacks</h3>
           <p class="authors">Alex Neel, Shoaib Ahmed Siddiqui, Amartya Sanyal, David Krueger</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-emerald-500">
+  <span class="venue-label">
     ICLR
   </span>
   
@@ -1754,12 +1744,11 @@
       
 
       <article id="accuracy-sanyal-2025" class="paper-card" data-authors="Sanyal, Amartya and Hu, Yaxi and Yu, Yaodong and Ma, Yian and Wang, Yixin and Schölkopf, Bernhard" data-topics="robustness" data-tags="robustness,label noise,ai safety">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Accuracy on the Wrong Line: On the Pitfalls of Noisy Data for Out-of-Distribution Generalisation</h3>
           <p class="authors">Amartya Sanyal, Yaxi Hu, Yaodong Yu, Yian Ma, Yixin Wang, Bernhard Schölkopf</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-indigo-500">
+  <span class="venue-label">
     AISTATS
   </span>
   
@@ -1860,12 +1849,11 @@
       
 
       <article id="open-barez-2025" class="paper-card" data-authors="Barez, Fazl and Fu, Tingchen and Prabhu, Ameya and Casper, Stephen and Sanyal, Amartya and Bibi, Adel and O&#39;Gara, Aidan and Kirk, Robert and Bucknall, Ben and Fist, Tim and others" data-topics="unlearning,llms" data-tags="unlearning,ai safety">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Open problems in machine unlearning for ai safety</h3>
           <p class="authors">Fazl Barez, Tingchen Fu, Ameya Prabhu, Stephen Casper, Amartya Sanyal, Adel Bibi, Aidan O&#39;Gara, Robert Kirk, Ben Bucknall, Tim Fist, others</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-gray-500">
+  <span class="venue-label">
     Preprint
   </span>
   
@@ -1955,12 +1943,11 @@
       
 
       <article id="robust-dmitriev-2024" class="paper-card" data-authors="Dmitriev, Daniil and Buhai, Rares‑Darius and Tiegel, Stefan and Wolters, Alexander and Novikov, Gleb and Sanyal, Amartya and Steurer, David and Yang, Fanny" data-topics="robustness,theory" data-tags="robustness">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Robust Mixture Learning when Outliers Overwhelm Small Groups</h3>
           <p class="authors">Daniil Dmitriev, Rares‑Darius Buhai, Stefan Tiegel, Alexander Wolters, Gleb Novikov, Amartya Sanyal, David Steurer, Fanny Yang</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-green-500">
+  <span class="venue-label">
     NeurIPS
   </span>
   
@@ -2049,12 +2036,11 @@
       
 
       <article id="what-jain-2024" class="paper-card" data-authors="Jain, Samyak and Lubana, Ekdeep Singh and Oksuz, Kemal and Joy, Tom and Torr, Philip and Sanyal, Amartya and Dokania, Puneet K." data-topics="llms" data-tags="llm,ai safety">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">What Makes and Breaks Safety Fine-tuning? A Mechanistic Study</h3>
           <p class="authors">Samyak Jain, Ekdeep Singh Lubana, Kemal Oksuz, Tom Joy, Philip Torr, Amartya Sanyal, Puneet K. Dokania</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-green-500">
+  <span class="venue-label">
     NeurIPS
   </span>
   
@@ -2143,17 +2129,16 @@
       
 
       <article id="provable-hu-2024" class="paper-card" data-authors="Hu, Yaxi and Sanyal, Amartya and Schölkopf, Bernhard" data-topics="privacy,theory" data-tags="differential privacy">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Provable Privacy with Non-Private Pre-Processing</h3>
           <p class="authors">Yaxi Hu, Amartya Sanyal, Bernhard Schölkopf</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-blue-500">
+  <span class="venue-label">
     ICML
   </span>
   
   
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
   
@@ -2239,12 +2224,11 @@
       
 
       <article id="the-bendov-2024" class="paper-card" data-authors="Ben‑Dov, Omri and Fawkes, Jake and Samadi, Samira and Sanyal, Amartya" data-topics="ml and society" data-tags="collective action,ml and society">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">The Role of Learning Algorithms in Collective Action</h3>
           <p class="authors">Omri Ben‑Dov, Jake Fawkes, Samira Samadi, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-blue-500">
+  <span class="venue-label">
     ICML
   </span>
   
@@ -2331,17 +2315,16 @@
       
 
       <article id="on-dmitriev-2024" class="paper-card" data-authors="Dmitriev, Daniil and Szabó, Kristóf and Sanyal, Amartya" data-topics="privacy,theory" data-tags="online learning,lower bounds,differential privacy">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">On the Growth of Mistakes in Differentially Private Online Learning: A Lower Bound Perspective</h3>
           <p class="authors">Daniil Dmitriev, Kristóf Szabó, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-cyan-500">
+  <span class="venue-label">
     COLT
   </span>
   
   
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-orange-500">
+  <span class="venue-label">
     TPDP
   </span>
   
@@ -2427,12 +2410,11 @@
       
 
       <article id="corrective-goel-2024" class="paper-card" data-authors="Goel, Shashwat and Prabhu, Ameya and Torr, Philip and Kumaraguru, Ponnurangam and Sanyal, Amartya" data-topics="unlearning,data poisoning" data-tags="unlearning,robustness">
-        <span class="accent-bar"></span>
-        <div class="p-4 pl-5">
+        <div class="paper-content">
           <h3 class="title">Corrective Machine Unlearning</h3>
           <p class="authors">Shashwat Goel, Ameya Prabhu, Philip Torr, Ponnurangam Kumaraguru, Amartya Sanyal</p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="inline-block px-2 py-0.5 rounded text-xs font-bold text-white bg-purple-500">
+  <span class="venue-label">
     TMLR
   </span>
   
@@ -2574,8 +2556,9 @@
 
 </main>
 
-<footer class="mt-24 text-base text-gray-400 border-t pt-16 pb-20 max-w-4xl mx-auto px-4">
-  © 2026 Amartya Sanyal  · FoRML · University of Copenhagen
+<footer class="site-footer site-container">
+  <p class="footer-identity">FoRML<span>University of Copenhagen</span></p>
+  <p>© 2026 Amartya Sanyal</p>
 </footer>
 </body>
 </html>

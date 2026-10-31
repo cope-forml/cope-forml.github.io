@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Foundations of Responsible Machine Learning @ UCPH" />
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-69X81VG1GW"></script>
 <script>
@@ -14,12 +16,11 @@
 </script>
   <title>People | Foundations of Responsible Machine Learning @ UCPH</title>
   <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="FoRML Blog RSS" href="/blog/rss.xml" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family:'Inter',sans-serif; background: #fafafa; }
-    h1, h2, h3 { font-family:'Source Serif Pro',serif; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script>
     window.MathJax = {
       tex: {
@@ -31,60 +32,56 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-<header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
-  <a href="/" class="text-5xl font-bold tracking-tight text-accent font-serif whitespace-nowrap">
-    FoRML
-  </a>
-  <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
-    <a href="/people/" class="nav-link hover:text-accent">People</a>
-    <a href="/publications/" class="nav-link hover:text-accent">Publications</a>
-    <a href="/blog/" class="nav-link hover:text-accent">Blog</a>
-    <a href="/news/" class="nav-link hover:text-accent">News</a>
-    <a href="/openings/" class="nav-link hover:text-accent">Openings</a>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header site-container">
+  <a href="/" class="brand" aria-label="FoRML home">FoRML<span class="brand-affiliation">University of Copenhagen</span></a>
+  <nav class="site-nav" aria-label="Main navigation">
+    
+      <a href="/people/" class="nav-link" aria-current="page">People</a>
+    
+      <a href="/publications/" class="nav-link">Publications</a>
+    
+      <a href="/blog/" class="nav-link">Blog</a>
+    
+      <a href="/news/" class="nav-link">News</a>
+    
+      <a href="/openings/" class="nav-link">Openings</a>
+    
   </nav>
 </header>
 
- <main class="max-w-5xl mx-auto px-4">
+<main id="main-content" class="site-container inner-main">
   
 
 
-<div class="max-w-6xl mx-auto px-4">
-  <div class="mb-12 max-w-2xl">
-    <h1 class="text-3xl font-semibold mb-3">Group Members</h1>
+<div class="people-page">
+  <div class="page-heading">
+    <h1>Group members</h1>
   </div>
 
-  <section class="mb-14" aria-labelledby="faculty-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="faculty-heading" class="text-2xl font-semibold">Faculty</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="faculty-heading">
+    <div class="people-section-heading">
+      <h2 id="faculty-heading" class="section-heading">Faculty</h2>
     </div>
-    <div class="grid grid-cols-1 gap-6 max-w-2xl mx-auto">
+    <div class="people-grid people-grid-horizontal">
       
         
           
-  <div class="person-card md:flex-row md:text-left p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card person-card-horizontal">
     
-      <img src="/assets/people/amartya.jpg"
-           class="w-36 h-36 md:mr-6 mb-4 md:mb-0 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Amartya Sanyal">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-start">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://amartya18x.github.io" class="text-accent hover:underline" target="_blank" rel="noopener">Amartya Sanyal</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 md:whitespace-nowrap">Tenure Track Assistant Professor (PI)</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Amartya%20Sanyal"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1; --portrait-focus: 50% 50%;">
+      <img src="/assets/people/amartya.jpg" alt="Amartya Sanyal" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://amartya18x.github.io" target="_blank" rel="noopener">Amartya Sanyal</a></h3>
+      <p class="person-affiliation">Tenure Track Assistant Professor (PI) · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Amartya%20Sanyal">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
@@ -115,39 +112,30 @@
     </div>
   </section>
 
-  <section class="mb-14" aria-labelledby="senior-researchers-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="senior-researchers-heading" class="text-2xl font-semibold">Senior Researchers</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="senior-researchers-heading">
+    <div class="people-section-heading">
+      <h2 id="senior-researchers-heading" class="section-heading">Senior Researchers</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="people-grid">
       
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/vikrant.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Vikrant Singhal">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://www.vikrantsinghal.com/o" class="text-accent hover:underline" target="_blank" rel="noopener">Vikrant Singhal</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">Fixed Term Assistant Professor</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Vikrant%20Singhal"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.06; --portrait-focus: 50% 45%;">
+      <img src="/assets/people/vikrant.jpg" alt="Vikrant Singhal" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://www.vikrantsinghal.com/o" target="_blank" rel="noopener">Vikrant Singhal</a></h3>
+      <p class="person-affiliation">Fixed Term Assistant Professor · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Vikrant%20Singhal">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
@@ -169,55 +157,39 @@
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/prathamesh.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Prathamesh Dharangutte">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://prathameshd.com/" class="text-accent hover:underline" target="_blank" rel="noopener">Prathamesh Dharangutte</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">Postdoc</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Prathamesh%20Dharangutte"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.35; --portrait-focus: 50% 62%;">
+      <img src="/assets/people/prathamesh.jpg" alt="Prathamesh Dharangutte" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://prathameshd.com/" target="_blank" rel="noopener">Prathamesh Dharangutte</a></h3>
+      <p class="person-affiliation">Postdoc · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Prathamesh%20Dharangutte">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/christian.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Christian Janos Lebeda">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://christianlebeda.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Christian Janos Lebeda</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">Postdoc</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Christian%20Janos%20Lebeda"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.02; --portrait-focus: 50% 45%;">
+      <img src="/assets/people/christian.jpg" alt="Christian Janos Lebeda" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://christianlebeda.github.io/" target="_blank" rel="noopener">Christian Janos Lebeda</a></h3>
+      <p class="person-affiliation">Postdoc · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Christian%20Janos%20Lebeda">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
@@ -226,12 +198,11 @@
     </div>
   </section>
 
-  <section aria-labelledby="phd-heading">
-    <div class="flex items-center gap-4 mb-6">
-      <h2 id="phd-heading" class="text-2xl font-semibold">PhD Students</h2>
-      <div class="h-px flex-1 bg-gray-200"></div>
+  <section class="people-section" aria-labelledby="phd-heading">
+    <div class="people-section-heading">
+      <h2 id="phd-heading" class="section-heading">PhD Students</h2>
     </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="people-grid">
       
         
       
@@ -239,218 +210,137 @@
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/johanna.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Johanna Düngler">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://johannaduengler.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Johanna Düngler</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH, DDSA PhD Fellow</div>
-      <a href="/publications/?author=Johanna%20D%C3%BCngler"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.08; --portrait-focus: 50% 0%;">
+      <img src="/assets/people/johanna.jpg" alt="Johanna Düngler" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://johannaduengler.github.io/" target="_blank" rel="noopener">Johanna Düngler</a></h3>
+      <p class="person-affiliation">PhD Student · UCPH, DDSA PhD Fellow</p>
+      <div class="person-links">
+        <a href="/publications/?author=Johanna%20D%C3%BCngler">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/carolin.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Carolin Heinzler">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://caroheinz.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Carolin Heinzler</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Carolin%20Heinzler"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.04; --portrait-focus: 50% 45%;">
+      <img src="/assets/people/carolin.jpg" alt="Carolin Heinzler" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://caroheinz.github.io/" target="_blank" rel="noopener">Carolin Heinzler</a></h3>
+      <p class="person-affiliation">PhD Student · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Carolin%20Heinzler">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/giorgio.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Giorgio Racca">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://giorgio-racca.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Giorgio Racca</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Giorgio%20Racca"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.2; --portrait-focus: 50% 52%;">
+      <img src="/assets/people/giorgio.jpg" alt="Giorgio Racca" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://giorgio-racca.github.io/" target="_blank" rel="noopener">Giorgio Racca</a></h3>
+      <p class="person-affiliation">PhD Student · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Giorgio%20Racca">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/luka.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Luka Radic">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          Luka Radic
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">UCPH</div>
-      <a href="/publications/?author=Luka%20Radic"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1; --portrait-focus: 50% 50%;">
+      <img src="/assets/people/luka.jpg" alt="Luka Radic" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3>Luka Radic</h3>
+      <p class="person-affiliation">PhD Student · UCPH</p>
+      <div class="person-links">
+        <a href="/publications/?author=Luka%20Radic">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/yaxi.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Yaxi Hu">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://yaxihu.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Yaxi Hu</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">MPI-IS</div>
-      <a href="/publications/?author=Yaxi%20Hu"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.04; --portrait-focus: 50% 50%;">
+      <img src="/assets/people/yaxi.jpg" alt="Yaxi Hu" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://yaxihu.github.io/" target="_blank" rel="noopener">Yaxi Hu</a></h3>
+      <p class="person-affiliation">PhD Student · MPI-IS</p>
+      <div class="person-links">
+        <a href="/publications/?author=Yaxi%20Hu">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/max.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Max Cairney-Leeming">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://maxcl.co.uk/" class="text-accent hover:underline" target="_blank" rel="noopener">Max Cairney-Leeming</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">ISTA (ELLIS PhD)</div>
-      <a href="/publications/?author=Max%20Cairney-Leeming"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.25; --portrait-focus: 60% 52%;">
+      <img src="/assets/people/max.jpg" alt="Max Cairney-Leeming" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://maxcl.co.uk/" target="_blank" rel="noopener">Max Cairney-Leeming</a></h3>
+      <p class="person-affiliation">PhD Student · ISTA (ELLIS PhD)</p>
+      <div class="person-links">
+        <a href="/publications/?author=Max%20Cairney-Leeming">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/anmol.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Anmol Goel">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://www.goel.ai/" class="text-accent hover:underline" target="_blank" rel="noopener">Anmol Goel</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">TU Darmstadt (ELLIS PhD)</div>
-      <a href="/publications/?author=Anmol%20Goel"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.1; --portrait-focus: 50% 0%;">
+      <img src="/assets/people/anmol.jpg" alt="Anmol Goel" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://www.goel.ai/" target="_blank" rel="noopener">Anmol Goel</a></h3>
+      <p class="person-affiliation">PhD Student · TU Darmstadt (ELLIS PhD)</p>
+      <div class="person-links">
+        <a href="/publications/?author=Anmol%20Goel">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
-        
-          
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
-    
-      <img src="/assets/people/omri.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Omri Ben-Dov">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://beomri.github.io/" class="text-accent hover:underline" target="_blank" rel="noopener">Omri Ben-Dov</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">MPI-IS</div>
-      <a href="/publications/?author=Omri%20Ben-Dov"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
-    </div>
-  </div>
-
         
       
         
@@ -459,39 +349,60 @@
       
         
           
-  <div class="person-card flex-col items-center text-center p-5 bg-white rounded-xl shadow flex
-        hover:shadow-2xl hover:-translate-y-1 hover:scale-[1.02] transition-transform duration-150">
+  <article class="person-card">
     
-      <img src="/assets/people/erell.jpg"
-           class="w-28 h-28 mb-4 shrink-0 rounded-full object-cover border-2 border-accent shadow"
-           alt="Erell Boutin-Jeanniard du Dot">
-    
-
-    <div class="flex min-w-0 flex-1 flex-col items-center">
-      <div class="text-xl font-medium mb-1">
-        
-          <a href="https://www.linkedin.com/in/erell-boutin-jeanniard-du-dot/" class="text-accent hover:underline" target="_blank" rel="noopener">Erell Boutin-Jeanniard du Dot</a>
-        
-      </div>
-      <div class="text-sm text-gray-600 mb-1 ">PhD Student</div>
-      <div class="text-sm text-gray-600 mb-4">UBC</div>
-      <a href="/publications/?author=Erell%20Boutin-Jeanniard%20du%20Dot"
-         class="mt-auto inline-block px-3 py-1 bg-accent text-white rounded hover:bg-accent-dark transition-colors text-sm">
-        View Publications
-      </a>
+    <div class="person-portrait" style="--portrait-scale: 1.28; --portrait-focus: 50% 60%;">
+      <img src="/assets/people/erell.jpg" alt="Erell Boutin-Jeanniard du Dot" width="184" height="184" loading="lazy">
     </div>
-  </div>
+    
+    <div class="person-details">
+      <h3><a href="https://www.linkedin.com/in/erell-boutin-jeanniard-du-dot/" target="_blank" rel="noopener">Erell Boutin-Jeanniard du Dot</a></h3>
+      <p class="person-affiliation">PhD Student · UBC (ELLIS PhD)</p>
+      <div class="person-links">
+        <a href="/publications/?author=Erell%20Boutin-Jeanniard%20du%20Dot">Publications</a>
+      </div>
+    </div>
+  </article>
 
         
       
     </div>
   </section>
+  
+  
+  <section class="people-section" aria-labelledby="alumni-heading">
+    <div class="people-section-heading">
+      <h2 id="alumni-heading" class="section-heading">Alumni</h2>
+    </div>
+    <div class="people-grid people-grid-horizontal">
+      
+        
+  <article class="person-card person-card-horizontal">
+    
+    <div class="person-portrait" style="--portrait-scale: 1; --portrait-focus: 50% 50%;">
+      <img src="/assets/people/omri.jpg" alt="Omri Ben-Dov" width="184" height="184" loading="lazy">
+    </div>
+    
+    <div class="person-details">
+      <h3><a href="https://beomri.github.io/" target="_blank" rel="noopener">Omri Ben-Dov</a></h3>
+      <p class="person-affiliation">MPI-IS → Postdoc · Saarland University</p>
+      <div class="person-links">
+        <a href="/publications/?author=Omri%20Ben-Dov">Publications</a>
+      </div>
+    </div>
+  </article>
+
+      
+    </div>
+  </section>
+  
 </div>
 
 </main>
 
-<footer class="mt-24 text-base text-gray-400 border-t pt-16 pb-20 max-w-4xl mx-auto px-4">
-  © 2026 Amartya Sanyal  · FoRML · University of Copenhagen
+<footer class="site-footer site-container">
+  <p class="footer-identity">FoRML<span>University of Copenhagen</span></p>
+  <p>© 2026 Amartya Sanyal</p>
 </footer>
 </body>
 </html>

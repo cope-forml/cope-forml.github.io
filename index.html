@@ -3,6 +3,8 @@
 
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Foundations of Responsible Machine Learning @ UCPH" />
   <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-69X81VG1GW"></script>
 <script>
@@ -14,12 +16,11 @@
 </script>
   <title>Home | Foundations of Responsible Machine Learning @ UCPH</title>
   <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="alternate" type="application/rss+xml" title="FoRML Blog RSS" href="/blog/rss.xml" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Source+Serif+Pro:wght@600&display=swap" rel="stylesheet">
-  <style>
-    body { font-family:'Inter',sans-serif; background: #fafafa; }
-    h1, h2, h3 { font-family:'Source Serif Pro',serif; }
-  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
   <script>
     window.MathJax = {
       tex: {
@@ -31,106 +32,112 @@
   </script>
   <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 </head>
-<body class="bg-gray-50 min-h-screen">
-<header class="max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-center sm:justify-between gap-8 mt-16 mb-14 px-4">
-  <a href="/" class="text-5xl font-bold tracking-tight text-accent font-serif whitespace-nowrap">
-    FoRML
-  </a>
-  <nav class="flex space-x-8 text-2xl tracking-wide font-medium">
-    <a href="/people/" class="nav-link hover:text-accent">People</a>
-    <a href="/publications/" class="nav-link hover:text-accent">Publications</a>
-    <a href="/blog/" class="nav-link hover:text-accent">Blog</a>
-    <a href="/news/" class="nav-link hover:text-accent">News</a>
-    <a href="/openings/" class="nav-link hover:text-accent">Openings</a>
+<body>
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header site-container">
+  <a href="/" class="brand" aria-label="FoRML home">FoRML<span class="brand-affiliation">University of Copenhagen</span></a>
+  <nav class="site-nav" aria-label="Main navigation">
+    
+      <a href="/people/" class="nav-link">People</a>
+    
+      <a href="/publications/" class="nav-link">Publications</a>
+    
+      <a href="/blog/" class="nav-link">Blog</a>
+    
+      <a href="/news/" class="nav-link">News</a>
+    
+      <a href="/openings/" class="nav-link">Openings</a>
+    
   </nav>
 </header>
 
- <main class="max-w-5xl mx-auto px-4">
+<main id="main-content" class="site-container home-main">
   
-
-<section class="text-center mt-16"> 
-  <img src="assets/images/placeholder-hero.jpg" alt="Group photo placeholder"
-    class="w-full h-64 object-cover rounded-2xl mb-6">
-  <h1 class="text-5xl font-semibold mb-4">Foundations of Responsible
-  Machine Learning</h1>
-  <p class="text-2xl leading-relaxed max-w-2xl rounded-2xl mb-6 mx-auto">
-    We are a research group at the <strong>University of
-    Copenhagen</strong> developing principled methods at the
-    intersection of privacy, robustness, learning theory, and
-    generally all aspects of responsible machine
-    learning.
-  </p>
+<section class="home-intro" aria-labelledby="group-name">
+  <h1 id="group-name">Foundations of Responsible Machine Learning</h1>
+  <p>We are a research group at the <strong>University of Copenhagen</strong> developing principled methods at the intersection of privacy, robustness, learning theory, and generally all aspects of responsible machine learning.</p>
+  <figure class="research-photo">
+    <div class="research-photo-window" data-board-frame>
+      <noscript><img class="whiteboard-photo" src="/assets/images/placeholder-hero.jpg" alt="Mathematical notes on the group's whiteboard" width="2636" height="1984" fetchpriority="high"></noscript>
+    </div>
+  </figure>
+  <template id="home-board-options">
+    
+      <img class="whiteboard-photo" src="/assets/images/placeholder-hero.jpg" alt="Blue and green mathematical notes on a whiteboard" style="--board-position: 50% 45%; --board-scale: 1.2;" fetchpriority="high">
+    
+      <img class="whiteboard-photo" src="/assets/images/boards/whiteboard-2024-10.jpg" alt="Probability and linear algebra notes on a whiteboard" style="--board-position: 50% 55%; --board-scale: 1.08;" fetchpriority="high">
+    
+      <img class="whiteboard-photo" src="/assets/images/boards/whiteboard-2026-02.jpg" alt="Information theory and unlearning notes on a whiteboard" style="--board-position: 50% 45%; --board-scale: 1.13;" fetchpriority="high">
+    
+      <img class="whiteboard-photo" src="/assets/images/boards/blackboard-2026-04.jpg" alt="Learning theory derivations written in chalk on a blackboard" style="--board-position: 50% 29%; --board-scale: 1.5;" fetchpriority="high">
+    
+      <img class="whiteboard-photo" src="/assets/images/boards/whiteboard-2026-06.jpg" alt="Learning theory notes in red and green on a whiteboard" style="--board-position: 50% 52%; --board-scale: 1.45;" fetchpriority="high">
+    
+  </template>
+  <script src="/assets/home-board.js" defer></script>
 </section>
-</section>
 
-
-<section class="mt-16">
-  <h2 class="text-2xl font-semibold mb-4">Featured News</h2>
- <div class="space-y-6">
-  
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">DFF grant for Data-Adaptive Privacy for Machine Learning</span>
-        <span class="text-xs text-gray-500">2026-10-12</span>
-      </div>
-      <div class="news-prose prose max-w-none">
-        <p>Amartya has been awarded <strong>DKK 7,198,686</strong> for <strong>Data-Adaptive Privacy for Machine Learning</strong> at the University of Copenhagen. The grant comes through <a href="https://dff.dk/en/our-funded-projects/see-an-overview-of-supported-research/?GoCaseId=6305-00038A"><strong>Independent Research Fund Denmark (DFF)’s thematic call on research in artificial intelligence (2026–2029).</strong></a></p>
-
-      </div>
-    </div>
-  
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">Amartya becomes an ELLIS Scholar</span>
-        <span class="text-xs text-gray-500">2026-10-12</span>
-      </div>
-      <div class="news-prose prose max-w-none">
-        <p>Amartya has become an <a href="https://ellis.eu/"><strong>ELLIS Scholar</strong></a>!</p>
-
-      </div>
-    </div>
-  
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">Three NeurIPS 2026 papers and a workshop paper</span>
-        <span class="text-xs text-gray-500">2026-10-09</span>
-      </div>
-      <div class="news-prose prose max-w-none">
-        <p>Congratulations to Johanna, Vikrant, and Christian on their NeurIPS 2026 acceptances! Johanna's <a href="/publications/#optimal-dngler-2026">paper on adaptive private k-PCA</a> was selected as a spotlight. Vikrant's <a href="/publications/#privately-brown-2026">paper on privately estimating monotone statistics</a> and Christian's <a href="https://arxiv.org/abs/2605.22756">Lumberjack paper on differentially private random forests</a> were also accepted.</p>
-<p>Our paper on private question answering without private training was accepted to <a href="https://beyond-private-training.ai.studio/">InfPriv: The New Landscape of AI Privacy</a>, a workshop at NeurIPS 2026.</p>
-
-      </div>
-    </div>
-  
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">Summer School and Workshops at Copenhagen</span>
-        <span class="text-xs text-gray-500">2026-06-27</span>
-      </div>
-      <div class="news-prose prose max-w-none">
-        <p>Amartya co-organised the <a href="https://ltsscopenhagen.github.io/">Learning Theory Summer School and Workshop</a> and the <a href="https://p1dpml.github.io/workshops/workshop-1.html">Workshop on Differential Privacy and Unlearning in Machine Learning</a> in Copenhagen.</p>
-
-      </div>
-    </div>
-  
-    <div class="bg-white rounded-xl p-5 shadow border-l-4 border-accent">
-      <div class="flex justify-between items-center mb-2">
-        <span class="font-semibold">Papers accepted to ICML 2026</span>
-        <span class="text-xs text-gray-500">2026-05-07</span>
-      </div>
-      <div class="news-prose prose max-w-none">
-        <p>Giorgio's <a href="/publications/#language-racca-2026">paper on learning-theoretic foundations for model collapse</a> was accepted to ICML 2026. Luka and Vikrant's <a href="https://openreview.net/forum?id=NG4RPdcNKG">paper on why forget-only unlearning needs memorization</a> was accepted to the Workshop on the Impact of Memorization on Trustworthy Foundation Models at ICML 2026.</p>
-
-      </div>
-    </div>
-  
+<section class="home-news" aria-labelledby="news-heading">
+  <div class="section-intro">
+    <h2 id="news-heading">News</h2>
+    <a class="text-link" href="/news/">All news</a>
+  </div>
+  <div class="news-list">
+    
+      <article class="news-item">
+        <time datetime="2026-10-12">12 Oct 2026</time>
+        <div>
+          <h3>DFF grant for Data-Adaptive Privacy for Machine Learning</h3>
+          <div class="news-prose"><p>Amartya has been awarded <strong>DKK 7,198,686</strong> for <strong>Data-Adaptive Privacy for Machine Learning</strong> at the University of Copenhagen. The grant comes through <a href="https://dff.dk/en/our-funded-projects/see-an-overview-of-supported-research/?GoCaseId=6305-00038A"><strong>Independent Research Fund Denmark (DFF)’s thematic call on research in artificial intelligence (2026–2029).</strong></a></p>
 </div>
-   </section>
+        </div>
+      </article>
+    
+      <article class="news-item">
+        <time datetime="2026-10-12">12 Oct 2026</time>
+        <div>
+          <h3>Amartya becomes an ELLIS Scholar</h3>
+          <div class="news-prose"><p>Amartya has become an <a href="https://ellis.eu/"><strong>ELLIS Scholar</strong></a>!</p>
+</div>
+        </div>
+      </article>
+    
+      <article class="news-item">
+        <time datetime="2026-10-09">09 Oct 2026</time>
+        <div>
+          <h3>Three NeurIPS 2026 papers and a workshop paper</h3>
+          <div class="news-prose"><p>Congratulations to Johanna, Vikrant, and Christian on their NeurIPS 2026 acceptances! Johanna's <a href="/publications/#optimal-dngler-2026">paper on adaptive private k-PCA</a> was selected as a spotlight. Vikrant's <a href="/publications/#privately-brown-2026">paper on privately estimating monotone statistics</a> and Christian's <a href="https://arxiv.org/abs/2605.22756">Lumberjack paper on differentially private random forests</a> were also accepted.</p>
+<p>Our paper on private question answering without private training was accepted to <a href="https://beyond-private-training.ai.studio/">InfPriv: The New Landscape of AI Privacy</a>, a workshop at NeurIPS 2026.</p>
+</div>
+        </div>
+      </article>
+    
+      <article class="news-item">
+        <time datetime="2026-06-27">27 Jun 2026</time>
+        <div>
+          <h3>Summer School and Workshops at Copenhagen</h3>
+          <div class="news-prose"><p>Amartya co-organised the <a href="https://ltsscopenhagen.github.io/">Learning Theory Summer School and Workshop</a> and the <a href="https://p1dpml.github.io/workshops/workshop-1.html">Workshop on Differential Privacy and Unlearning in Machine Learning</a> in Copenhagen.</p>
+</div>
+        </div>
+      </article>
+    
+      <article class="news-item">
+        <time datetime="2026-05-07">07 May 2026</time>
+        <div>
+          <h3>Papers accepted to ICML 2026</h3>
+          <div class="news-prose"><p>Giorgio's <a href="/publications/#language-racca-2026">paper on learning-theoretic foundations for model collapse</a> was accepted to ICML 2026. Luka and Vikrant's <a href="https://openreview.net/forum?id=NG4RPdcNKG">paper on why forget-only unlearning needs memorization</a> was accepted to the Workshop on the Impact of Memorization on Trustworthy Foundation Models at ICML 2026.</p>
+</div>
+        </div>
+      </article>
+    
+  </div>
+</section>
 
 </main>
 
-<footer class="mt-24 text-base text-gray-400 border-t pt-16 pb-20 max-w-4xl mx-auto px-4">
-  © 2026 Amartya Sanyal  · FoRML · University of Copenhagen
+<footer class="site-footer site-container">
+  <p class="footer-identity">FoRML<span>University of Copenhagen</span></p>
+  <p>© 2026 Amartya Sanyal</p>
 </footer>
 </body>
 </html>
