@@ -1781,6 +1781,140 @@ a, button {
   color: #454545;
 }
 
+.group-author {
+  color: var(--accent);
+  font-weight: 400;
+  text-align: left;
+  text-decoration: underline;
+  text-decoration-color: #d5b7b7;
+  text-underline-offset: 3px;
+}
+
+.group-author:hover, .group-author[aria-pressed="true"] {
+  text-decoration-color: currentColor;
+}
+
+.venue-filter {
+  --venue-ink: #53535b;
+  --venue-paper: #f0f0f2;
+  color: var(--venue-ink);
+  background: var(--venue-paper);
+  border: 1px solid transparent;
+  border-radius: 4px;
+  padding: 3px 8px;
+  line-height: 1.4;
+}
+
+.venue-filter[data-venue="neurips"] {
+  --venue-ink: #166044;
+  --venue-paper: #e8f3ed;
+}
+
+.venue-filter[data-venue="icml"] {
+  --venue-ink: #245aa0;
+  --venue-paper: #eaf1fc;
+}
+
+.venue-filter[data-venue="iclr"] {
+  --venue-ink: #6d4299;
+  --venue-paper: #f1ebf8;
+}
+
+.venue-filter[data-venue="soda"] {
+  --venue-ink: #a13852;
+  --venue-paper: #fbecef;
+}
+
+.venue-filter[data-venue="aistats"] {
+  --venue-ink: #51449e;
+  --venue-paper: #eeecfa;
+}
+
+.venue-filter[data-venue="colt"] {
+  --venue-ink: #19667b;
+  --venue-paper: #e6f3f7;
+}
+
+.venue-filter[data-venue="tmlr"] {
+  --venue-ink: #795326;
+  --venue-paper: #f5efe5;
+}
+
+.venue-filter[data-venue="eaamo"] {
+  --venue-ink: #98396e;
+  --venue-paper: #f9eaf3;
+}
+
+.venue-filter[data-venue="tpdp"] {
+  --venue-ink: #994b20;
+  --venue-paper: #fcf0e5;
+}
+
+.venue-filter[data-venue="forc"] {
+  --venue-ink: #216c66;
+  --venue-paper: #e8f4f2;
+}
+
+.venue-filter:hover, .venue-filter[aria-pressed="true"] {
+  border-color: currentColor;
+}
+
+.paper-distinction {
+  display: inline-block;
+  color: #805b16;
+  background: #fff9e8;
+  border: 1px solid #e4ca87;
+  border-radius: 999px;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.paper-distinction[data-distinction="oral"] {
+  color: #8c4b22;
+  border-color: #ddb692;
+  background: #fff5eb;
+}
+
+.active-publication-filters {
+  margin-top: 22px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.active-publication-filters[hidden], .selected-filter[hidden] {
+  display: none;
+}
+
+.selected-filter {
+  color: var(--ink);
+  background: #f3f3f1;
+  border: 1px solid #deded9;
+  border-radius: 4px;
+  padding: 5px 9px;
+  font-size: 12px;
+  text-align: left;
+}
+
+.selected-filter:hover {
+  border-color: #999;
+}
+
+.clear-publication-filters {
+  font-size: 12px;
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.group-author:focus-visible, .venue-filter:focus-visible, .selected-filter:focus-visible, .clear-publication-filters:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 .paper-card .actions {
   gap: 12px;
   margin-block: 6px;
