@@ -16,6 +16,8 @@ permalink: /publications/index.html
   'colt':       ['COLT',     'bg-cyan-500',    'Conference on Learning Theory', 'booktitle'],
   'tmlr':       ['TMLR',     'bg-purple-500',  'Transactions on Machine Learning Research', 'journal'],
   'eaamo':      ['EAAMO',    'bg-pink-500',    'Equity and Access in Algorithms, Mechanisms, and Optimization', 'booktitle'],
+  'tpdp':       ['TPDP',     '', 'Theory and Practice of Differential Privacy', 'booktitle'],
+  'forc':       ['FORC',     '', 'Foundations of Responsible Computing', 'booktitle'],
   'arxiv':      ['Preprint', 'bg-gray-500',    'arXiv Preprint', 'preprint'],
   'preprint':   ['Preprint', 'bg-gray-500',    'Preprint', 'preprint']
 } %}
@@ -38,6 +40,11 @@ permalink: /publications/index.html
       {% for t in topicsL %}
         <button class="chip" data-topic="{{ t.id }}">{{ t.name }}</button>
       {% endfor %}
+    </div>
+    <div id="active-filters" class="active-publication-filters" hidden>
+      <button type="button" id="author-filter" class="selected-filter" hidden></button>
+      <button type="button" id="venue-filter" class="selected-filter" hidden></button>
+      <button type="button" id="clear-filters" class="clear-publication-filters">Clear filters</button>
     </div>
   </aside>
 
@@ -97,31 +104,35 @@ permalink: /publications/index.html
             {%- for author in p.entryTags.author.split(' and ') -%}
               {%- set parts = author.split(',') -%}
               {%- if parts | length == 2 -%}
-                {{ parts[1].trim() }} {{ parts[0].trim() }}{% if not loop.last %}, {% endif %}
+                <span class="paper-author">{{ parts[1].trim() }} {{ parts[0].trim() }}</span>{% if not loop.last %}, {% endif %}
               {%- else -%}
-                {{ author }}{% if not loop.last %}, {% endif %}
+                <span class="paper-author">{{ author }}</span>{% if not loop.last %}, {% endif %}
               {%- endif -%}
             {%- endfor -%}
           </p>
 <div class="flex flex-wrap items-center gap-2 mb-1">
-  <span class="venue-label">
+  <button type="button" class="venue-label venue-filter" data-venue="{{ 'preprint' if venueKey == 'arxiv' else venueKey }}" aria-label="Filter by {{ venueTag }}" aria-pressed="false">
     {{ venueTag }}
-  </span>
+  </button>
   {% for extraVenue in extraVenueTokens %}
     {% set extraVenueKey = extraVenue.trim() | lower %}
     {% if extraVenueKey and extraVenueKey in extraVenueMap and extraVenueMap[extraVenueKey][0] != venueTag %}
-  <span class="venue-label">
+  {% if extraVenueKey == 'oral' or extraVenueKey == 'spotlight' %}
+  <span class="paper-distinction" data-distinction="{{ extraVenueKey }}">
     {{ extraVenueMap[extraVenueKey][0] }}
   </span>
+  {% else %}
+  <button type="button" class="venue-label venue-filter" data-venue="{{ extraVenueKey }}" aria-label="Filter by {{ extraVenueMap[extraVenueKey][0] }}" aria-pressed="false">{{ extraVenueMap[extraVenueKey][0] }}</button>
+  {% endif %}
     {% endif %}
   {% endfor %}
   {% if 'tpdp' in venue and venueTag != 'TPDP' %}
-  <span class="venue-label">
+  <button type="button" class="venue-label venue-filter" data-venue="tpdp" aria-label="Filter by TPDP" aria-pressed="false">
     {{ extraVenueMap['tpdp'][0] }}
-  </span>
+  </button>
   {% endif %}
   <span class="text-xs text-gray-500">
-    {{ venueFull }} ({{ p.entryTags.year }})
+    {{ 'Arxiv' if venueKey == 'arxiv' or venueKey == 'preprint' else venueFull }} ({{ p.entryTags.year }})
   </span>
 </div>
 
@@ -173,6 +184,18 @@ permalink: /publications/index.html
     return new URLSearchParams(window.location.search).get(name);
   }
   document.addEventListener("DOMContentLoaded", function() {
+    document.querySelectorAll('.paper-author').forEach(span => {
+      const member = memberNames.find(name => normalizeAuthor(name) === normalizeAuthor(span.textContent));
+      if (!member) return;
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'group-author';
+      button.textContent = span.textContent;
+      button.dataset.author = member;
+      button.setAttribute('aria-label', `Filter papers by ${member}`);
+      button.setAttribute('aria-pressed', 'false');
+      span.replaceWith(button);
+    });
     let author = getQueryParam("author");
     if (author) {
       // Keep old first-name member links working without matching unrelated authors.
@@ -180,12 +203,10 @@ permalink: /publications/index.html
         normalizeAuthor(name).split(' ')[0] === normalizeAuthor(author));
       if (legacyMatches.length === 1) author = legacyMatches[0];
       authorFilter = normalizeAuthor(author);
-      const search = document.getElementById("search-input");
-      if (search) {
-        search.value = author;
-      }
-      apply();
+      authorLabel = memberNames.find(name => normalizeAuthor(name) === authorFilter) || author;
     }
+    venueFilter = getQueryParam('venue') || '';
+    apply();
     // BibTeX copy handler
     document.querySelectorAll('.bibtex-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -226,7 +247,7 @@ permalink: /publications/index.html
   const chips=document.querySelectorAll('.chip');
   const cards=document.querySelectorAll('.paper-card');
   const searchInput=document.getElementById('search-input');
-  let topic='all', q='', authorFilter='';
+  let topic='all', q='', authorFilter='', authorLabel='', venueFilter='';
   function apply(){
     const query = q.toLowerCase();
     let visibleCount = 0;
@@ -234,7 +255,9 @@ permalink: /publications/index.html
       const topics = c.dataset.topics.toLowerCase().split(',').map(s=>s.trim());
       const matchesAuthor = !authorFilter || c.dataset.authors.split(/\s+and\s+/)
         .some(author => normalizeAuthor(author) === authorFilter);
-      const show = (topic==='all' || topics.includes(topic)) && matchesAuthor &&
+      const matchesVenue = !venueFilter || Array.from(c.querySelectorAll('[data-venue]'))
+        .some(button => button.dataset.venue === venueFilter);
+      const show = (topic==='all' || topics.includes(topic)) && matchesAuthor && matchesVenue &&
                    c.textContent.toLowerCase().includes(query);
       if (show) visibleCount++;
       c.classList.toggle('hidden', !show);
@@ -242,6 +265,22 @@ permalink: /publications/index.html
       c.classList.toggle('scale-95', !show);
     });
     document.getElementById('no-results').classList.toggle('hidden', visibleCount > 0);
+    const authorButton = document.getElementById('author-filter');
+    authorButton.hidden = !authorFilter;
+    authorButton.textContent = `${authorLabel} ×`;
+    authorButton.setAttribute('aria-label', `Remove author filter: ${authorLabel}`);
+    const venueButton = document.getElementById('venue-filter');
+    const venueLabel = Array.from(document.querySelectorAll('.venue-filter')).find(b => b.dataset.venue === venueFilter)?.textContent.trim() || venueFilter;
+    venueButton.hidden = !venueFilter;
+    venueButton.textContent = `${venueLabel} ×`;
+    venueButton.setAttribute('aria-label', `Remove venue filter: ${venueLabel}`);
+    document.getElementById('active-filters').hidden = !(authorFilter || venueFilter || q || topic !== 'all');
+    document.querySelectorAll('.group-author').forEach(b => b.setAttribute('aria-pressed', String(normalizeAuthor(b.dataset.author) === authorFilter)));
+    document.querySelectorAll('.venue-filter').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.venue === venueFilter)));
+    chips.forEach(b => {
+      b.classList.toggle('chip-active', b.dataset.topic === topic);
+      b.setAttribute('aria-pressed', String(b.dataset.topic === topic));
+    });
     document.querySelectorAll('.sticky-year').forEach(heading => {
       let next = heading.nextElementSibling;
       let hasVisiblePaper = false;
@@ -253,6 +292,18 @@ permalink: /publications/index.html
     });
   }
   chips.forEach(btn=>btn.onclick=()=>{chips.forEach(b=>b.classList.remove('chip-active'));btn.classList.add('chip-active');topic=btn.dataset.topic;apply();});
-  searchInput.oninput=()=>{authorFilter='';q=searchInput.value;apply();};
-  document.getElementById('paper-container').addEventListener('click',e=>{if(e.target.matches('.tag')){authorFilter='';searchInput.value=e.target.dataset.tag;q=e.target.dataset.tag;apply();}});
+  searchInput.oninput=()=>{q=searchInput.value;apply();};
+  document.getElementById('author-filter').onclick=()=>{authorFilter='';authorLabel='';apply();};
+  document.getElementById('venue-filter').onclick=()=>{venueFilter='';apply();};
+  document.getElementById('clear-filters').onclick=()=>{topic='all';q='';authorFilter='';authorLabel='';venueFilter='';searchInput.value='';apply();};
+  document.getElementById('paper-container').addEventListener('click',e=>{
+    const author = e.target.closest('.group-author');
+    const venue = e.target.closest('.venue-filter');
+    const tag = e.target.closest('.tag');
+    if (author) {authorLabel=author.dataset.author;authorFilter=normalizeAuthor(authorLabel);}
+    else if (venue) {venueFilter=venue.dataset.venue;}
+    else if (tag) {searchInput.value=tag.dataset.tag;q=tag.dataset.tag;}
+    else return;
+    apply();
+  });
 </script>
