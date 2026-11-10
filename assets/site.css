@@ -1815,6 +1815,11 @@ a, button {
   --venue-paper: #eaf1fc;
 }
 
+.venue-filter[data-venue="memfm"] {
+  --venue-ink: #3a617e;
+  --venue-paper: #edf4f8;
+}
+
 .venue-filter[data-venue="iclr"] {
   --venue-ink: #6d4299;
   --venue-paper: #f1ebf8;

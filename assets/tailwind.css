@@ -269,6 +269,7 @@ a, button { -webkit-tap-highlight-color: transparent; }
 .venue-filter { --venue-ink: #53535b; --venue-paper: #f0f0f2; color: var(--venue-ink); background: var(--venue-paper); border: 1px solid transparent; border-radius: 4px; padding: 3px 8px; line-height: 1.4; }
 .venue-filter[data-venue="neurips"] { --venue-ink: #166044; --venue-paper: #e8f3ed; }
 .venue-filter[data-venue="icml"] { --venue-ink: #245aa0; --venue-paper: #eaf1fc; }
+.venue-filter[data-venue="memfm"] { --venue-ink: #3a617e; --venue-paper: #edf4f8; }
 .venue-filter[data-venue="iclr"] { --venue-ink: #6d4299; --venue-paper: #f1ebf8; }
 .venue-filter[data-venue="soda"] { --venue-ink: #a13852; --venue-paper: #fbecef; }
 .venue-filter[data-venue="aistats"] { --venue-ink: #51449e; --venue-paper: #eeecfa; }
