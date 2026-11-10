@@ -120,6 +120,16 @@ eleventyConfig.addCollection('publications', () => {
     return {
       ...e,
       slug,
+      // Export citation metadata, not the abbreviated labels used by the UI.
+      bibtex: bibtexParse.toBibtex([{
+        ...e,
+        entryTags: Object.fromEntries(Object.entries(e.entryTags)
+          .filter(([key]) => !['topic', 'tags', 'venueextra', 'pdf', 'code', 'video', 'arxiv'].includes(key))
+          .concat(e.entryTags.arxiv ? [
+            ['eprint', e.entryTags.arxiv],
+            ['archivePrefix', 'arXiv']
+          ] : []))
+      }]).trim(),
       topics: (e.entryTags.topic||'').split(',').map(s=>s.trim()).filter(Boolean),
       tags:   (e.entryTags.tags ||'').split(',').map(s=>s.trim()).filter(Boolean)
     };

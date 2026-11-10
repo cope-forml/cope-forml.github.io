@@ -23,6 +23,7 @@ permalink: /publications/index.html
 } %}
 {% set extraVenueMap = {
   'tpdp': ['TPDP', 'bg-orange-500'],
+  'memfm': ['MemFM Workshop (ICML)', 'bg-blue-500'],
   'forc': ['FORC', 'bg-teal-600'],
   'spotlight': ['Spotlight', 'bg-amber-500'],
   'oral': ['Oral', 'bg-amber-500']
@@ -67,34 +68,16 @@ permalink: /publications/index.html
       {% set venueTag = venueRaw %}
       {% set venueClass = 'bg-accent' %}
       {% set venueFull = venueRaw %}
-      {% set bibField = 'booktitle' %}
-      {% set bibType = 'inproceedings' %}
       {% for key, val in venueMap %}
-        {% if key in venue %}
+        {% if not venueKey and key in venue %}
           {% set venueKey = key %}
           {% set venueTag = val[0] %}
           {% set venueClass = val[1] %}
           {% set venueFull = val[2] %}
-          {% if val[3] == 'preprint' %}
-            {% set bibType = 'article' %}
-            {% set bibField = 'journal' %}
-          {% else %}
-            {% set bibType = 'inproceedings' %}
-            {% set bibField = val[3] %}
-          {% endif %}
         {% endif %}
       {% endfor %}
       {% if not venueKey %}
         {% set venueKey = venueRaw %}
-      {% endif %}
-
-      {# For arXiv/preprint, get arxiv code if present #}
-      {% set arxivcode = '' %}
-      {% if venueKey == 'arxiv' or venueKey == 'preprint' %}
-        {% set arxivcode = p.entryTags.arxiv or '' %}
-        {% if arxivcode and (arxivcode | slice(0,6) != 'arXiv:') %}
-          {% set arxivcode = 'arXiv:' ~ arxivcode %}
-        {% endif %}
       {% endif %}
 
       <article id="{{ p.slug }}" class="paper-card" data-authors="{{ p.entryTags.author | escape }}" data-topics="{{ p.topics | join(',') }}" data-tags="{{ p.tags | join(',') }}">
@@ -126,7 +109,7 @@ permalink: /publications/index.html
   {% endif %}
     {% endif %}
   {% endfor %}
-  {% if 'tpdp' in venue and venueTag != 'TPDP' %}
+  {% if 'tpdp' in venue and venueTag != 'TPDP' and 'tpdp' not in (venueExtra | lower) %}
   <button type="button" class="venue-label venue-filter" data-venue="tpdp" aria-label="Filter by TPDP" aria-pressed="false">
     {{ extraVenueMap['tpdp'][0] }}
   </button>
@@ -147,16 +130,7 @@ permalink: /publications/index.html
                 <a href="https://arxiv.org/abs/{{ p.entryTags.arxiv }}" aria-label="arXiv" class="action-btn">arXiv</a>
               {% endif %}
             {% endif %}
-            <button class="action-btn bibtex-btn"
-              data-slug="{{ p.slug }}"
-    data-title="{{ p.entryTags.title | escape }}"
-    data-authors="{{ p.entryTags.author | escape }}"
-    data-year="{{ p.entryTags.year }}"
-    data-venue="{{ venueFull | escape }} ({{ venueTag }})"
-    data-field="{{ bibField }}"
-    data-type="{{ bibType }}"
-    data-arxiv="{{ arxivcode }}"
-            >BibTeX</button>
+            <button class="action-btn bibtex-btn" data-bibtex="{{ p.bibtex | escape }}">BibTeX</button>
           </div>
           
           <div class="tags flex flex-wrap gap-1">
@@ -210,33 +184,7 @@ permalink: /publications/index.html
     // BibTeX copy handler
     document.querySelectorAll('.bibtex-btn').forEach(btn => {
       btn.addEventListener('click', function() {
-        const slug = btn.dataset.slug;
-        const title = btn.dataset.title;
-        const authors = btn.dataset.authors;
-        const year = btn.dataset.year;
-        const venue = btn.dataset.venue;
-        const field = btn.dataset.field || 'booktitle';
-        const type = btn.dataset.type || 'inproceedings';
-        const arxiv = btn.dataset.arxiv;
-        // Remove curly braces in venue/title/authors to avoid nested braces
-        function clean(s) { return s.replace(/[{}]/g,''); }
-        let bibtex = '';
-        if(type === 'article' && arxiv) {
-          bibtex = `@article{${slug},
-  title = {${clean(title)}},
-  author = {${clean(authors)}},
-  year = {${year}},
-  journal = {${clean(arxiv)}}
-}`;
-        } else {
-          bibtex = `@${type}{${slug},
-  title = {${clean(title)}},
-  author = {${clean(authors)}},
-  year = {${year}},
-  ${field} = {${clean(venue)}}
-}`;
-        }
-        navigator.clipboard.writeText(bibtex);
+        navigator.clipboard.writeText(btn.dataset.bibtex);
         btn.textContent = 'Copied!';
         setTimeout(() => { btn.textContent = 'BibTeX'; }, 1200);
       });
